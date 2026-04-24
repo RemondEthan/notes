@@ -1,0 +1,1836 @@
+# 组件排查问题常用命令
+
+[toc]
+
+## 账号密码
+
+```shell
+算量测试环境用 ak sk：gdmp-linkis
+HPUAILGFJ8XRNUSRKDRS
+nOlBSabiqsvXcz5FpFVCnThmmLkFm2B69bLQljCy
+
+ECS测试环境用 ak sk：gdmp-linkis
+HPUAOSG64R0QBLUYW1N5
+j3nZYGZ6GibbbDj1ste8jLIIzfxTkN4FejEimx8x
+
+咱们自己用 ak sk 权限最大：
+key：9ZH9TMWRBOGNBX7CRRPA
+秘钥：z9WEzGmwMujvj5Mlhx0IE3DyvwsmSRtsFNgE5rtS
+
+华为云obs：
+https://auth.huaweicloud.com/authui/login.html?id=glodon-xmgl#/login
+用户名：ops-pdc 
+密码：xmglpdc123qwe!@#
+```
+
+## 1. Redis
+
+```shell
+# 进入redis-cli执行命令
+cd /usr/local/bin
+./redis-cli -h 10.125.157.238 -p 6379
+auth 'AhmovWpsmj5JL8c'
+select 2
+
+redis-cli -h 10.125.157.238 -p 6379 -a 'Ahmovwpsmj5JL8c' -n 2
+
+# 具体要执行的命令
+HGETALL gdmp:kyuubi:hop:server:name:
+
+get gdmp_hop_geps_datasource_connection_count:http://121.36.45.202:8888
+
+keys ALERT_LOG_ANALYZER_APPLICATIONID_LINKISID_MAP_*
+
+keys gdmp-gravitino*
+```
+
+* k-v存储查询存储值：
+
+```shell
+GET "gdmp-gravitino:catalog:Bearer client-credentials-token:sub=catalogOnObs"
+```
+
+* 查看是否开启rdb或者aof：
+
+```shell
+config get appendonly
+
+config get save
+```
+
+
+
+## 2. Es
+
+```shell
+# 查看所有索引
+curl -X GET "http://elasticsearch.public-service:9200/_cat/indices?v"
+
+# 查看yarn开头的索引
+curl -X GET "elasticsearch-0.elasticsearch.public-service:9200/_cat/indices/yarn*?v"
+curl -X GET "elasticsearch-0.elasticsearch.public-service:9200/_cat/indices/yarn*?v"
+curl -X GET "http://elasticsearch.public-service:9200/_cat/indices/yarn*?v"
+
+curl -u elastic:E1asGl0oix -X GET "http://middle-es-te-master.middle-bigdata-te-basic:9200/_cat/indices/yarn*?v"
+
+curl -u aa:vv -X GET "http://10.127.91.18:30044/_cat/indices/yarn-log-deployment-2023*?v"
+
+# 查询索引数据
+curl -u aa:vv -X GET "http://10.127.91.18:30044/es_all_fields/_search?size=100&pretty" -H 'Content-Type: application/json' -d'{"query": {"match_all": {}}}'
+
+curl -X GET "http://10.127.91.111:9200/tend_detail_v2/_search?size=100&pretty" -H 'Content-Type: application/json' -d'{"query": {"match_all": {}}}'
+
+# 清空索引数据
+curl -u aa:vv -X POST "http://10.127.91.18:30044/es_all_fields/_delete_by_query?pretty" \
+-H 'Content-Type: application/json' \
+-d '{"query": {"match_all": {}}}'
+
+
+# 查索引总数据量
+curl -u aa:vv -X GET "http://10.127.91.18:30044/es_all_fields/_count?pretty" \
+-H 'Content-Type: application/json' \
+-d '{"query": {"match_all": {}}}'
+
+curl -X GET "http://10.127.91.111:9200/md_tend_info/_count?pretty" \
+-H 'Content-Type: application/json' \
+-d '{"query": {"match_all": {}}}'
+
+# 高亮显示
+curl -X GET "elasticsearch-0.elasticsearch.public-service:9200/_cat/indices/yarn-log-deployment-2023*?v" | grep --color=always -E 'yarn-'
+
+# 查看健康状态
+curl -X GET "elasticsearch-0.elasticsearch.public-service:9200/_cluster/health"
+curl -X GET "http://10.127.91.75:9200/_cluster/health"
+
+# 查看节点情况
+curl -X GET "http://10.127.91.75:9200/_cat/nodes?v&pretty"
+curl -X GET "http://10.127.91.112:9200/_cat/nodes?v&pretty"
+
+
+# 查看settings
+curl -X GET "http://localhost:9200/yarn-log-dev-2024-09-19/_settings"
+
+curl -X GET "elasticsearch-0.elasticsearch.public-service:9200/yarn-log-deployment-2024-10-01/_settings"
+
+# 查看mapping
+curl -X GET "elasticsearch-0.elasticsearch.public-service:9200/yarn-log-deployment-2024-10-07/_mapping"
+curl  -u aa:vv -X GET "http://10.127.91.18:30044/yarn-log-deployment-2023-10-20/_mapping"
+
+# 查看索引
+curl -X GET "elasticsearch-bigdata-0.elasticsearch-bigdata.public-service.svc.cluster.local:9200/yarn-log-dev-2024-09-19"
+
+# 查看索引数据
+curl -X GET "elasticsearch-bigdata-0.elasticsearch-bigdata.public-service.svc.cluster.local:9200/yarn-log-dev-2024-09-19/_search"
+
+# 查看版本
+curl -X POST "elasticsearch-bigdata-0.elasticsearch-bigdata.public-service.svc.cluster.local:9200/_cat/version?v=true"
+curl -X POST "10.244.64.227:9200/_cat/version?v=true"
+
+
+# 查看es基础信息
+curl elasticsearch-bigdata-0.elasticsearch-bigdata.public-service.svc.cluster.local:9200
+
+# 查看es返回信息
+curl -I elasticsearch-bigdata-0.elasticsearch-bigdata.public-service.svc.cluster.local:9200
+
+# 典型的查询语句
+curl -X POST "http://localhost:9200/yarn-log-dev-2024-09-19/_search" -H 'Content-Type: application/json' -d'
+{
+    "query": {
+        "bool": {
+            "must": [
+                {"match": { "linkisTaskId": "2003642" }},
+                {"range": {
+                    "logTime.keyword": {
+                        "lte": "2024-09-20 01:23:38"
+                    }
+                }}
+            ]
+        }
+    },
+    "sort": [
+        { "logTime.keyword": { "order": "desc" }}
+    ],
+    "from": 0,
+    "size": 100
+}'
+
+
+curl -X POST "http://localhost:9200/yarn-log-dev-2024-10-08/_search" -H 'Content-Type: application/json' -d'
+{
+  "size": 10,
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "term": {
+            "message": "同步合作伙伴"
+          }
+        }
+      ]
+    }
+  },
+  "sort": [
+    {
+      "logTime.keyword": {
+        "order": "desc"
+      }
+    }
+  ]
+}
+
+curl -X POST "http://elasticsearch-0.elasticsearch.public-service:9200/yarn-log-deployment-2024-09-28/_search" -H 'Content-Type: application/json' -d' {"size": 10,"sort": [{"logTime.keyword": {"order": "desc"}}]}
+
+curl -X GET "http://elasticsearch-0.elasticsearch.public-service:9200/yarn-log-deployment-2024-10-08/_search?size=10&pretty" -H 'Content-Type: application/json' -d'{"query": {"match_all": {}}}'
+
+curl -X GET "http://elasticsearch-0.elasticsearch.public-service:9200/yarn-log-deployment-2024-10-08/_search?size=10&pretty" -H 'Content-Type: application/json' -d'{"query": {"match": {"message": "同步合作伙伴"}}}'
+
+curl -X GET "elasticsearch-0.elasticsearch.public-service:9200/yarn-log-dev-2024-10-24/_search?size=10&pretty" -H 'Content-Type: application/json' -d'{"query": {"term": {"linkisTaskId": "2003640"}}}'
+
+curl -X GET "http://elasticsearch-0.elasticsearch.public-service:9200/yarn-log-deployment-*/_search?size=10&pretty" -H 'Content-Type: application/json' -d'{"query": {"term": {"linkisTaskId.keyword": "3776278"}}}'
+
+curl -X GET "http://elasticsearch-0.elasticsearch.public-service:9200/yarn-log-deployment-2024-10-08/_search?size=10&pretty" -H 'Content-Type: application/json' -d'{"query": {"bool": {"must": [{"match": {"message": "同步合作伙伴"}},{"term": {"linkisTaskId": "3790746"}}]}}}'
+
+curl -X GET "http://elasticsearch-0.elasticsearch.public-service:9200/yarn-log-deployment-2024-10-08/_search?size=10&pretty" -H 'Content-Type: application/json' -d'{"query": {"bool": {"must": [{"match": {"message": "同步合作伙伴"}},{"term": {"linkisTaskId": "3790746"}}]}}}'
+
+curl -X POST "http://elasticsearch-0.elasticsearch.public-service:9200/yarn-log-deployment-2024-10-05/_search" -H 'Content-Type: application/json' -d'{"query": {"bool": {"must": [{"match": { "linkisTaskId": "3756456" }},{"range": {"logTime.keyword": {"lte": "2024-10-08 16:51:30"}}}]}},"sort": [{ "logTime.keyword": { "order": "desc" }}], "from": 0,"size": 100}'
+
+curl -X GET "elasticsearch-0.elasticsearch.public-service:9200/yarn-log-dev-2024-10-24/_search?size=10&pretty" -H 'Content-Type: application/json' -d'{"query": {"term": {"linkisTaskId": "2003640"}}}'
+
+curl -X GET "elasticsearch-0.elasticsearch.public-service:9200/yarn-log-dev-2025-03-25/_search?size=100&pretty" -H 'Content-Type: application/json' -d'{"query": {"term": {"linkisTaskId": "2030979"}}}'
+
+curl -X POST "http://elasticsearch.geip-gdmp:9200/yarn-log-deployment-2024-10-05/_search" -H 'Content-Type: application/json' -d'{"query": {"bool": {"must": [{"range": {"logTime.keyword": {"lte": "2024-10-08 16:51:30"}}}]}},"sort": [{ "logTime.keyword": { "order": "desc" }}], "from": 0,"size": 100}'
+
+curl -X GET "http://elasticsearch-0.elasticsearch.public-service:9200/yarn-log-deployment-2024-10-08/_search?size=10&pretty" -H 'Content-Type: application/json' -d'{"query": {"match_all": {}}}'
+
+curl -u aa:vv -X GET "http://10.127.91.18:30044/yarn-log-deployment-2023-10-20/_search?size=100&pretty" -H 'Content-Type: application/json' -d'{"query": {"match_all": {}}}'
+
+curl -X POST "http://elasticsearch-0.elasticsearch.public-service:9200/yarn-log-dev-2025-03-25/_search?size=10&pretty" -H 'Content-Type: application/json' -d'{"query": {"match_all": {}}}'
+
+# 手动创建yarn-log索引
+curl -X PUT "http://elasticsearch-0.elasticsearch.public-service:9200/yarn-log-deployment-2024-11-30" -H 'Content-Type: application/json' -d'{"settings":{"index":{"routing":{"allocation":{"include":{"_tier_preference":"data_content"}}},"number_of_shards":"1","number_of_replicas":"1"}},"mappings":{"properties":{"@timestamp":{"type":"date"},"@version":{"type":"text","fields":{"keyword":{"type":"keyword","ignore_above":256}}},"applicationId":{"type":"text","fields":{"keyword":{"type":"keyword","ignore_above":256}}},"collect_time":{"type":"text","fields":{"keyword":{"type":"keyword","ignore_above":256}}},"containerId":{"type":"text","fields":{"keyword":{"type":"keyword","ignore_above":256}}},"dbz":{"properties":{"connectorContext":{"type":"text","fields":{"keyword":{"type":"keyword","ignore_above":256}}},"connectorName":{"type":"text","fields":{"keyword":{"type":"keyword","ignore_above":256}}},"connectorType":{"type":"text","fields":{"keyword":{"type":"keyword","ignore_above":256}}}}},"dolphin_process_id":{"type":"text","fields":{"keyword":{"type":"keyword","ignore_above":256}}},"dolphin_process_instance_id":{"type":"text","fields":{"keyword":{"type":"keyword","ignore_above":256}}},"dolphin_task_instance_id":{"type":"text","fields":{"keyword":{"type":"keyword","ignore_above":256}}},"ecs":{"properties":{"version":{"type":"text","fields":{"keyword":{"type":"keyword","ignore_above":256}}}}},"linkisTaskId":{"type":"long"},"log":{"properties":{"level":{"type":"text","fields":{"keyword":{"type":"keyword","ignore_above":256}}},"logger":{"type":"text","fields":{"keyword":{"type":"keyword","ignore_above":256}}}}},"logFileName":{"type":"text","fields":{"keyword":{"type":"keyword","ignore_above":256}}},"logLevel":{"type":"text","fields":{"keyword":{"type":"keyword","ignore_above":256}}},"logTime":{"type":"text","fields":{"keyword":{"type":"keyword","ignore_above":256}}},"log_line":{"type":"long"},"log_thread":{"type":"text","fields":{"keyword":{"type":"keyword","ignore_above":256}}},"message":{"type":"text","fields":{"keyword":{"type":"keyword","ignore_above":256}}},"process":{"properties":{"thread":{"properties":{"name":{"type":"text","fields":{"keyword":{"type":"keyword","ignore_above":256}}}}}}},"sequenceId":{"type":"long"},"sessionId":{"type":"text","fields":{"keyword":{"type":"keyword","ignore_above":256}}},"type":{"type":"text","fields":{"keyword":{"type":"keyword","ignore_above":256}}}}}}'
+
+curl -X PUT "http://elasticsearch-0.elasticsearch.public-service:9200/yarn-log-deployment-2024-11-24" -H 'Content-Type: application/json' -d'{"settings":{"index":{"routing":{"allocation":{"include":{"_tier_preference":"data_content"}}},"number_of_shards":"1","number_of_replicas":"1"}},"mappings":{"properties":{"@timestamp":{"type":"date"},"@version":{"type":"text","fields":{"keyword":{"type":"keyword","ignore_above":256}}},"applicationId":{"type":"text","fields":{"keyword":{"type":"keyword","ignore_above":256}}},"collect_time":{"type":"text","fields":{"keyword":{"type":"keyword","ignore_above":256}}},"containerId":{"type":"text","fields":{"keyword":{"type":"keyword","ignore_above":256}}},"dbz":{"properties":{"connectorContext":{"type":"text","fields":{"keyword":{"type":"keyword","ignore_above":256}}},"connectorName":{"type":"text","fields":{"keyword":{"type":"keyword","ignore_above":256}}},"connectorType":{"type":"text","fields":{"keyword":{"type":"keyword","ignore_above":256}}}}},"dolphin_process_id":{"type":"text","fields":{"keyword":{"type":"keyword","ignore_above":256}}},"dolphin_process_instance_id":{"type":"text","fields":{"keyword":{"type":"keyword","ignore_above":256}}},"dolphin_task_instance_id":{"type":"text","fields":{"keyword":{"type":"keyword","ignore_above":256}}},"ecs":{"properties":{"version":{"type":"text","fields":{"keyword":{"type":"keyword","ignore_above":256}}}}},"linkisTaskId":{"type":"long"},"log":{"properties":{"level":{"type":"text","fields":{"keyword":{"type":"keyword","ignore_above":256}}},"logger":{"type":"text","fields":{"keyword":{"type":"keyword","ignore_above":256}}}}},"logFileName":{"type":"text","fields":{"keyword":{"type":"keyword","ignore_above":256}}},"logLevel":{"type":"text","fields":{"keyword":{"type":"keyword","ignore_above":256}}},"logTime":{"type":"text","fields":{"keyword":{"type":"keyword","ignore_above":256}}},"log_line":{"type":"long"},"log_thread":{"type":"text","fields":{"keyword":{"type":"keyword","ignore_above":256}}},"message":{"type":"text","fields":{"keyword":{"type":"keyword","ignore_above":256}}},"process":{"properties":{"thread":{"properties":{"name":{"type":"text","fields":{"keyword":{"type":"keyword","ignore_above":256}}}}}}},"sequenceId":{"type":"long"},"sessionId":{"type":"text","fields":{"keyword":{"type":"keyword","ignore_above":256}}},"type":{"type":"text","fields":{"keyword":{"type":"keyword","ignore_above":256}}}}}}'
+
+# 创建需要用户名密码的es索引
+curl -u aa:vv -X PUT "http://10.127.91.18:30044/es_all_fields" -H 'Content-Type: application/json' -d '{"settings": {"number_of_shards": 1,"number_of_replicas": 1,"index": {"refresh_interval": "1s"}},"mappings": {"properties": {"tinyint_column": {"type": "byte"},  "smallint_column": {         "type": "short"  }, "int_column": {   "type": "integer"  },       "bigint_column": {  "type": "long"   },       "largeint_column": {         "type": "keyword"       },       "float_column": {  "type": "float"       },       "double_column": {  "type": "double"  },       "decimal_column": {         "type": "scaled_float",         "scaling_factor": 100       },       "char_column": {         "type": "text"       },       "varchar_column": {         "type": "text"       },       "string_column": {         "type": "text"       },       "boolean_column": {         "type": "boolean"       },       "date_column": {         "type": "date",         "format": "yyyy-MM-dd"       },       "datetime_column": {         "type": "date",         "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"       },       "array_column": {         "type": "text"       },       "json_column": {         "type": "text"       }     }}}'
+
+# 排查es日志问题专用
+curl -X POST "http://elasticsearch-0.elasticsearch.public-service:9200/yarn-log-dev-2024-11-14/_search" -H 'Content-Type: application/json' -d'{"query": {"bool": {"must": [{"match": { "linkisTaskId": "2003600" }},{"range": {"logTime.keyword": {"lte": "2024-11-14 21:30:30"}}}]}},"sort": [{ "logTime.keyword": { "order": "desc" }}], "from": 0,"size": 100}'
+
+curl -X POST "http://elasticsearch-0.elasticsearch.public-service:9200/yarn-log-dev-2025-03-25/_search" -H 'Content-Type: application/json' -d'{"query": {"bool": {"must": [{"match": { "linkisTaskId": "2030979" }},{"range": {"logTime.keyword": {"lte": "2025-03-25 03:49:53"}}}]}},"sort": [{ "logTime.keyword": { "order": "desc" }}], "from": 0,"size": 100}'
+
+```
+
+## 3. Mysql
+
+```shell
+# 进入mysql
+mysql -u pdc_user -p -h 10.125.170.59 -P 3306
+mysql -u root -p -h 10.100.96.224 -P 3306
+mysql -u root -p -h 10.0.198.11 -P 7109
+mysql -u datahouseuser -h 10.125.167.235 -P 9030 -p
+
+mysql -u gcf_user -p -h rm-2zet6ainr1jrg8b15do.mysql.rds.aliyuncs.com -P 3306
+
+mysql -u root -p -h mysql-public-0.mysql-public.public-service.svc.cluster.local -P 3306
+
+mysql -u root -p -h mysql8-public-0.mysql8-public.public-service -P 3306
+mysql -u root -p -h ha-cluster-mysql-0.mysql.public-service -P 3306
+
+mysql -u root -p -h 10.100.96.239 -P 3306
+
+mysql -u root -p -h 10.100.96.239 -P 3306
+mysql -u gdmp -p -h 172.17.177.65 -P 8603
+# 输入密码
+mOWL3Pm^bR7At2w
+GpEdg(!f*x2021
+
+# 执行sql查询
+select * from swan.swan_task;
+
+ALTER USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY '#Xgo2f4I';
+
+ALTER USER 'root'@'%' IDENTIFIED WITH caching_sha2_password BY '#Xgo2f4I';
+```
+
+## 4. Kafka
+
+* 本地启动kafka：
+
+```shell
+.\bin\windows\kafka-server-start.bat .\config\server.properties
+```
+
+* 常用命令：
+
+```shell
+# 查看kafka版本
+kafka-broker-api-versions.sh --bootstrap-server kafka-0.kafka.public-service:9092
+kafka-topics.sh --describe --bootstrap-server kafka-0.kafka.public-service:9092
+gdmp-kafka-2.gdmp-kafka-headless.glodon-sjzt-te-public-service.svc.cluster.local:9092
+
+# 列出所有topic
+kafka-topics.sh --list --bootstrap-server kafka-0.kafka.public-service:9092
+kafka-topics.sh --list --bootstrap-server kafka-0.kafka-headless.public-service:9092
+kafka-topics.sh --list --bootstrap-server kafka-te-svc.middle-bigdata-te-basic:9092
+kafka-topics.sh --list --bootstrap-server 10.125.167.72:9092
+
+# 查看某个topic的信息
+kafka-topics.sh --describe --topic kyuubi-runtime-log --bootstrap-server localhost:9092
+
+kafka-topics.sh --describe --topic glodon-gdmp-ptc --bootstrap-server 10.125.167.72:9092
+
+kafka-topics.sh --describe --topic dbz_table_status_callback_topic --bootstrap-server kafka-0.kafka-headless.public-service:9092
+
+kafka-topics.sh --describe --topic kyuubi-runtime-log --bootstrap-server gdmp-kafka-0.gdmp-kafka-headless.glodon-sjzt-pd-public-service:9092
+
+kafka-topics.sh --describe --topic selfhealing --bootstrap-server kafka-0.kafka.public-service:9092	
+
+# 删除某个topic
+kafka-topics.sh --delete --topic kyuubi-runtime-log --bootstrap-server gdmp-kafka-0.gdmp-kafka-headless.glodon-sjzt-pd-public-service:9092
+
+kafka-topics.sh --delete --topic selfhealing --bootstrap-server kafka-0.kafka.public-service:9092	
+
+# 重新创建这个topic
+kafka-topics.sh --create --topic selfhealing --partitions 1 --replication-factor 1 --bootstrap-server kafka-0.kafka.public-service:9092
+
+kafka-topics.sh --create --topic selfhealing --partitions 1 --replication-factor 1 --bootstrap-server Kafka-0.kafka-headless.public-service:9092
+
+# 查看消费者分组信息
+kafka-consumer-groups.sh --bootstrap-server localhost:9092 --list
+kafka-consumer-groups.sh --list --bootstrap-server 10.125.167.72:9092
+kafka-consumer-groups.sh --bootstrap-server kafka-0.kafka.public-service:9092 --list
+kafka-consumer-groups.sh --bootstrap-server Kafka-0.kafka-headless.public-service:9092 --list
+kafka-consumer-groups.sh --bootstrap-server gdmp-kafka-1.gdmp-kafka-headless.glodon-sjzt-pd-public-service:9092 --list
+
+kafka-consumer-groups.sh --bootstrap-server 10.125.167.72:9092 --group 100006_t_user --describe
+
+# 删除一个分组
+kafka-consumer-groups.sh --bootstrap-server 10.125.167.72:9092 --group 100121_worker_evaluation --delete
+kafka-consumer-groups.sh --bootstrap-server 10.125.167.72:9092 --group 100121_bad_behavior --delete
+
+# 查看某个分组的信息
+kafka-consumer-groups.sh --bootstrap-server localhost:9092 --describe --group alert-log-analyzer-consumer-test
+
+# 作为消费者查看topic中的信息
+kafka-console-consumer.sh --bootstrap-server gdmp-kafka-0.gdmp-kafka-headless.glodon-sjzt-developer-pd-public-service:9092 --topic kyuubi-startup-log
+
+kafka-console-consumer.sh --bootstrap-server kafka-0.kafka.public-service:9092 --topic dbz_table_status_callback_topic
+
+kafka-console-consumer.sh --bootstrap-server gdmp-kafka-0.gdmp-kafka-headless.glodon-sjzt-pd-public-service:9092 --topic kyuubi-startup-log
+
+kafka-console-consumer.sh --bootstrap-server gdmp-kafka-1.gdmp-kafka-headless.glodon-sjzt-te-public-service:9092 --topic kyuubi-startup-log
+
+# 查看当前偏移量位置
+kafka-run-class.sh kafka.tools.GetOffsetShell --topic linkis-log-dev --time -1 --broker-list localhost:9092 --partitions 0
+kafka-run-class.sh kafka.tools.GetOffsetShell --topic kyuubi-runtime-log --time -1 --broker-list localhost:9092 --partitions 0
+
+# 发送producer消息
+kafka-console-producer.sh --broker-list localhost:9092 --topic kyuubi-runtime-log
+```
+
+
+
+## 5. Kubectl
+
+```shell
+# 查看所有context
+kubectl config get-contexts
+
+# 切换context
+kubectl config use-context sg-data-te-bj4-vpc
+
+# 查看命名空间下的服务
+kubectl get svc -n geip-gdmp
+
+# 进入某个pod
+kubectl exec -it alert-log-analyzer-application-cluster-taskmanager-12-27 -n geip-gdmp -- /bin/sh
+
+# 测试连通性
+curl -v http://alert-log-analyzer-application-cluster.geip-gdmp:6123
+
+# 强制删除命名空间下一个无法删除的pod
+kubectl delete pod kyuubi-engine-spark-3-3-1-quality-seaweedfs-5hgsf -n geip-gdmp --force --grace-period=0
+kubectl delete pod 	gdmp-middle-kyuubi-0 -n geip-gdmp --force --grace-period=0
+kubectl delete pod 	gdmp-middle-kyuubi-0 -n middle-bigdata-te --force --grace-period=0
+
+
+# 检查秘钥是否存在
+kubectl get secret cloud-reggg
+
+# 尝试使用指定的镜像和密钥创建pod
+kubectl run test-pod \
+  --image=registry.public.com/gldsg-prod/kyuubi-engine-flink-1-16-0-seaweedfs:v1.20250124085555_1aa18a947cc \
+  --overrides='{ "spec": { "imagePullSecrets": [{"name": "cloud-reggg"}] } }'
+  
+# 查看pv和pvc
+kubectl get pv
+kubectl get pvc
+
+# 查看某一个pod的状态
+kubectl describe pod kyuubi-engine-flinkx-9m42t
+
+# 进入一个pod
+kubectl --kubeconfig=C:\Users\liujh-r\.kube\config exec -it gdmp-middle-kyuubi-0 -n geip-gdmp -- /bin/sh
+
+# 复制本地文件到k8s的一个pod里面
+kubectl cp mssql-jdbc-6.4.0.jre8.jar gdmp-middle-kyuubi-0:/mnt/kyuubi/client/spark/spark-3.3.1-bin-hadoop3/jars/ -n geip-gdmp
+kubectl cp dev-rest-init.sql duckdbljh-deployment-5c8d5545b4-2gr4m:/ -n  gdmp-swan-k8s-test
+kubectl cp iceberg.duckdb_extension duckdbljh-deployment-5c8d5545b4-2gr4m:/root/.duckdb/extensions/v1.3.2/linux_amd64/ -n  gdmp-swan-k8s-test
+
+kubectl cp geps_job_10000.hpl hop-web-5c79c5849b-jp6bf:/home/hop -n gdmp-swan-k8s-test
+
+kubectl cp 部位材料应耗量汇总_test1.hpl hop-web-5c79c5849b-jp6bf:/home/hop -n gdmp-swan-k8s-test
+
+kubectl cp hop-transform-starrocksoutput-2.6.0.jar hop-web-5c79c5849b-jp6bf:/usr/local/tomcat/plugins/transforms/starrocksoutput/ -n gdmp-swan-k8s-test
+
+# 复制k8s文件到本地
+kubectl exec -n starrocks dm8-0 -- cat /opt/dmdbms/data/DAMENG/dm.ini > C:\Users\liujh-r\Desktop\pod模板\dm\dm.ini
+
+kubectl exec -n geip-gdmp wl-duckdb-deployment-dd6f696d6-f2f8b -- cat /test-rest-init.sql > C:\Users\liujh-r\Desktop\pod模板\duckdb\test-rest-init.sql
+
+kubectl exec -n geip-gdmp sdk-test-lake-in-7b5b458b5b-2n85f -- cat ./app.log > C:\Users\liujh-r\Desktop\sdk-app.log
+
+kubectl exec -n geip-gdmp sdk-test-beta-64cb66498c-kbr7v -- cat ./app.log > C:\Users\liujh-r\Desktop\sdk-app.log
+
+kubectl exec -n geip-gdmp gdmp-iceberg-rest-catalog-75fd7c5f59-cngns -- cat /root/gravitino-iceberg-rest-server/heap_histo_live.txt > C:\Users\liujh-r\Desktop\heap_histo_live.txt
+
+kubectl exec -n geip-gdmp backk-0 -- cat /data/test/cron_run_jmeter_loop.sh > C:\Users\liujh-r\Desktop\cron_run_jmeter_loop.sh
+
+kubectl exec -n geip-gdmp gdmp-iceberg-rest-catalog-75fd7c5f59-wr5nh -- cat /opt/java/openjdk11/bin/heap_histo_live.txt > C:\Users\liujh-r\Desktop\heap_histo_live.txt
+
+kubectl exec -n starrocks starrocks-cluster-fe-0 -- cat /opt/starrocks/fe/log/fe.log > C:\Users\liujh-r\Desktop\fe.log
+
+kubectl exec -n starrocks starrocks-cluster-be-1 -- cat /opt/starrocks/be/log/be.INFO > C:\Users\liujh-r\Desktop\be.INFO
+
+kubectl exec -n geip-cde hop-server-0 -- cat /tmp/export_20f51b80-2055-4a02-b0bd-b93b195dd94d.zip > C:\Users\liujh-r\Desktop\export_20f51b80-2055-4a02-b0bd-b93b195dd94d.zip
+
+kubectl exec -n gdmp-swan-k8s-test gdmp-iceberg-rest-catalog-5d4b7999bc-lh27b -- cat /root/gravitino/gravitino-0.10.0-incubating-SNAPSHOT-bin/iceberg-rest-server/libs/gravitino-server-common-0.10.0-incubating-SNAPSHOT.jar > C:\Users\liujh-r\Desktop\pod模板\gravitino\gravitino-server-common-0.10.0-incubating-SNAPSHOT.jar
+
+kubectl exec -n geip-gdmp gdmp-iceberg-rest-catalog-84c5478697-ctpt8 -- cat /root/gravitino/gravitino-0.10.0-incubating-SNAPSHOT-bin/logs/gravitino-iceberg-rest-server.log > C:\Users\liujh-r\Desktop\gravitino-iceberg-rest-server.log
+
+# 列出所有状态为completed的pod
+kubectl get pods -n geip-gdmp --field-selector=status.phase=Succeeded
+
+# 列出需要清理的pod
+kubectl get pods -n geip-gdmp --field-selector=status.phase=Succeeded --no-headers \
+| awk '$1 ~ /^kyuubi-connection-spark-sql/ && $5 ~ /d/ && int($5) > 1 {print $1}' 
+
+# 统计数量
+kubectl get pods -n geip-gdmp --field-selector=status.phase=Succeeded --no-headers \
+| awk '$1 ~ /^kyuubi-connection-spark-sql/ && $5 ~ /d/ && int($5) > 1 {print $1}' \
+| wc -l
+
+# 删除需要清理的pod
+kubectl get pods -n geip-gdmp --field-selector=status.phase=Succeeded --no-headers \
+| awk '$1 ~ /^kyuubi-connection-spark-sql/ && $5 ~ /d/ && int($5) > 1 {print $1}' \
+| while read pod; do
+  echo "Deleting pod: $pod"
+  kubectl delete pod -n geip-gdmp "$pod"
+  sleep 1
+done
+
+kubectl get pods -n geip-gdmp --field-selector=status.phase=Succeeded --no-headers \
+| awk '$1 ~ /^kyuubi-connection-spark-sql/ && $5 ~ /d/ && int($5) > 1 {print $1}' \
+| while read pod; do
+  echo "Deleting pod: $pod"
+  kubectl delete pod -n geip-gdmp "$pod"
+done
+kubectl get pods -n geip-gdmp --field-selector=status.phase=Succeeded --no-headers \
+| awk '$1 ~ /^kyuubi-jdbc-engine/ && $5 ~ /d/ && int($5) > 1 {print $1}' \
+| while read pod; do
+  echo "Deleting pod: $pod"
+  kubectl delete pod -n geip-gdmp "$pod"
+done
+
+# 手动调度定时任务job执行
+kubectl create job --from=cronjob/swan-scheduler-day-job day-job-manual-run -n geip-gdmp
+kubectl create job --from=cronjob/swan-scheduler-week-job week-job-manual-run -n geip-gdmp
+
+```
+
+## 6. Mongo
+
+```shell
+
+mongo 10.127.92.25:30018
+
+# 进入远程的控制台
+mongo -u root -p 5gTU4o7g5g --authenticationDatabase admin 10.127.92.25:30018
+
+mongo -u test3 -p test3 --authenticationDatabase admin 10.127.92.25:30018
+
+mongo -u safe_sync_data -p p4D!P4hV^Lo#jHdr --authenticationDatabase admin 10.125.152.196:8635
+mongo 10.125.152.196:8635
+
+mongo -u zhgd_user -p 5ir5f9zv@9NH%x5 --authenticationDatabase admin 10.125.152.125:8635
+
+# 查看集群信息
+db.runCommand({ ismaster: 1 });
+
+# 查看集群hello
+db.runCommand({ hello: 1 });
+
+# ping一下连接
+db.runCommand({ ping: 1 });
+
+# 查看某个集合
+db.t_detail.find()
+
+db.t_detail.find({ "F_ID": NumberLong("1849730451640758275") })
+
+db.version();
+
+db.stats();
+
+# 查看所有用户信息
+use admin;
+show users;
+
+use config; 
+var shards = db.getCollection("shards"); 
+var cursor = shards.find(); 
+while (cursor.hasNext()){printjson(cursor.next());}
+
+# 查看分片状态
+sh.status()
+
+# 查看副本状态
+rs.status()
+```
+
+## 7. Rabbitmq
+
+```shell
+# 查看虚拟机
+curl -u gdmp-label:5Qe99Q*Z -X GET http://10.125.159.45:15672/api/vhosts
+curl -u root:8MRwggb%*ofMCU3Z -X GET http://rabbitmq.public-service:15672/api/vhosts
+
+# 查看是否有/gdmp这个虚拟主机
+curl -u 'paas:paas!@#qw0e' http://rabbitmq-ha-data.middle-bigdata-te:15672/api/vhosts/%2Fgdmp
+```
+
+## 8. Seaweedfs
+
+* 进入交互：
+
+```shell
+weed shell
+```
+
+* 清理日志文件：
+
+```shell
+# 清理seaweedfs日志数据
+FILER_SERVER="http://seaweedfs-filer-client.seaweedfs.svc.cluster.local:8888"
+DIR_PATH="/topics/.system/log"
+TODAY=$(date +%Y-%m-%d)
+YESTERDAY=$(date -d "yesterday" +%Y-%m-%d)
+
+# 获取日志目录
+DIRS=$(curl -s -H "Accept: application/json" "$FILER_SERVER$DIR_PATH/" | grep -oP '(?<="FullPath":")([^"]+)' | awk -F'/' '{print $NF}')
+
+# 输出 DIRS 变量
+echo "DIRS: $DIRS"
+
+# 如果当前目录不存在，设置昨天为TODAY变量
+if ! echo "$DIRS" | grep -q "$TODAY"; then
+    TODAY="$YESTERDAY"
+fi
+
+# 输出调试信息
+echo "当前日期 (TODAY): $TODAY"
+echo "昨天日期 (YESTERDAY): $YESTERDAY"
+
+for dir_name in $DIRS; do
+    # 删除非今天的日志目录
+    if [[ "$dir_name" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ && "$dir_name" < "$TODAY" ]]; then
+        echo "DELETE $FILER_SERVER$DIR_PATH/$dir_name?recursive=true"
+        curl -X DELETE "$FILER_SERVER$DIR_PATH/$dir_name?recursive=true"
+    fi
+done
+```
+
+* 查看版本信息：
+
+```shell
+curl http://seaweedfs-master.seaweedfs:9333/cluster/status
+
+curl http://seaweedfs-filer-client.seaweedfs.svc.cluster.local:8888/version
+```
+
+* 查看volume状态：
+
+```shell
+curl http://seaweedfs-master.seaweedfs:9333/vol/status
+```
+
+* 查看某个volume：
+
+```
+curl http://seaweedfs-master.seaweedfs:9333/vol/status?collection=flink-artifact
+```
+
+* 查看数据是否存在：
+
+```shell
+curl -I http://seaweedfs-filer-client.seaweedfs.svc.cluster.local:8888/repository-cdjg/user_110002_fd7d46d6/20250123/fad9d164-bcf8-4a34-aa3f-9430f3640ab6_file
+
+curl -I http://seaweedfs-filer-client.seaweedfs.svc.cluster.local:8888/repository-gdmp-cdjg/flink/flink-checkpoints/2045637
+
+curl -I http://seaweedfs-filer-client.seaweedfs.svc.cluster.local:8888/repository-cdjg/flink/flink-checkpoints/2030381
+
+curl -I http://seaweedfs-filer-client.seaweedfs.svc.cluster.local:8888/repository-cdjg/user_110002_fd7d46d6/20250123/469340b0-7a37-44b0-b7ef-1c5c39617751_file
+
+curl -I http://seaweedfs-filer-client.seaweedfs.svc.cluster.local:8888/repository_xc_test/gdmp_service/resultSet/2004141
+```
+
+* 下载文件：
+
+```shell
+curl -o output_file http://seaweedfs-filer-client.seaweedfs.svc.cluster.local:8888/repository-cdjg/user_110002_fd7d46d6/20250123/fad9d164-bcf8-4a34-aa3f-9430f3640ab6_file
+```
+
+* 使用hdfs查看存储的数据：
+
+```shell
+export HADOOP_CLASSPATH=$HADOOP_CLASSPATH:/mnt/kyuubi/client/spark/spark-3.3.1-bin-hadoop3/jars/seaweedfs-hadoop3-client-3.30.jar
+
+cd /mnt/kyuubi/client/hadoop3.1.1/bin
+
+./hdfs dfs -ls seaweedfs://seaweedfs-filer-client.seaweedfs.svc.cluster.local:8888/repository-cdjg
+./hdfs dfs -ls seaweedfs://seaweedfs-filer-client.seaweedfs.svc.cluster.local:8888/repository_xc_test/gdmp_service/resultSet/2004160
+s3://gdmp-data/repository_003-gdmp-test/gdmp_service/resultSet/4299857
+```
+
+## 9. Linux
+
+* 检查jdk的安装包：
+
+```shell
+  rpm -qa | grep java
+```
+
+* 查看jdk的软连接：
+
+```shell
+ls -l /etc/alternatives/java
+
+update-alternatives --config java
+```
+
+* 查看当前文件夹的文件总数
+
+```shell
+ls -1 | grep -v '^\.+' | wc -l
+```
+
+* 查看当前文件夹的占用存储大小
+
+```shell
+du -sh .
+```
+
+* 查找文件名：
+
+```shell
+find . -name "beeline"
+
+find / -name "dm.ini"
+```
+
+* 查看正在执行的进程：
+
+```shell
+ps -aux | grep kyuubi
+```
+
+* 查看文件倒数的内容：
+
+```shell
+tail -n 200 be.INFO.log.20250320-010015
+```
+
+* vim查找：
+
+```shell
+/COMPATIBLE_MODE
+```
+
+* 查看系统版本：
+
+```shell
+cat /etc/os-release
+```
+
+* 查看是x86还是arm64：
+
+```shell
+uname -m
+```
+
+* 解压tar包：
+
+```shell
+tar -xzf jdk-17.0.12_linux-x64_bin-20250318.tar.gz
+```
+
+* 安装python：
+
+```
+sudo apt install python3.11
+```
+
+* 查看编辑环境变量：
+
+```shell
+sudo vim /etc/profile
+
+# 设置 Python 3.11 的环境变量
+export PYTHON_HOME=/usr/bin/python3.11
+export PATH=$PYTHON_HOME:$PATH
+
+source /etc/profile
+
+vim ~/.bash_profile
+
+source ~/.bash_profile
+```
+
+* 查看安装位置：
+
+```shell
+which python3.11
+```
+
+* 下载包文件：
+
+```shell
+wget https://services.gradle.org/distributions/gradle-8.2-bin.zip
+```
+
+* 远程端口转发：
+
+```shell
+ssh -f -L 8888:127.0.0.1:8090 visitor@10.2.182.255 -N
+```
+
+* 查看文件句柄数量：
+
+```shell
+ls /proc/34/fd | wc -l
+```
+
+* 查看线程数量是否增长：
+
+```shell
+ps -T -p 34 | wc -l
+```
+
+* 查看当前用户：
+
+```shell
+id -u 0是root 9999是flink
+```
+
+
+
+## 10. Kyuubi
+
+* 直接从kyuubi提交任务：
+
+抓出来json之后，复制到一个自定义的文件夹路径下
+
+```shell
+cp /tmp/kyuubi/work/5391594/5391594.json /tmp/kyuubi/
+```
+
+* 执行命令：
+
+```shell
+job: /mnt/kyuubi/client/flinkx/bin/flinkx_kyuubi \
+	-mode k8s \
+	-job /tmp/kyuubi/work/5391594/5391594.json \
+	-jobid test450w \
+	-flinkconf /mnt/kyuubi/client/flink/flink-1.11.6/conf \
+	-flinkLibJar /mnt/kyuubi/client/flink/flink-1.11.6/lib \
+	-pluginLoadMode shipfile \
+	-confProp {"env.kafka.brokers":"gdmp-kafka-0.gdmp-kafka-headless.glodon-sjzt-pd-public-service:9092,gdmp-kafka-1.gdmp-kafka-headless.glodon-sjzt-pd-public-service:9092,gdmp-kafka-2.gdmp-kafka-headless.glodon-sjzt-pd-public-service:9092","kubernetes.container.image.pull-policy":"Always","kubernetes.jobmanager.memory.limit-factor":"1.5","kyuubi.client.ipAddress":"10.125.167.240","s3.access-key":"9ZH9TMWRBOGNBX7CRRPA","s3.path.style.access":"true","kubernetes.taskmanager.cpu.limit-factor":"4","jobmanager.retrieve-taskmanager-hostname":"false","kubernetes.jobmanager.cpu.limit-factor":"4","setting.speed.readerChannel":"","parallelism.default":"1","s3.endpoint":"obs.cn-north-4.myhuaweicloud.com","kubernetes.taskmanager.labels":"virtual-kubelet.io/burst-to-cci:enforce","state.savepoints.dir":"s3://gdmp-data/repository_004-gdmp-prod/flink/flink-checkpoints/5391594","setting.speed.writerChannel":"","env.task.id":"5391594","flink.checkpoint.interval":"60000","taskmanager.numberOfTaskSlots":"1","s3.ssl.enabled":"false","kubernetes.jobmanager.labels":"kyuubi-unique-tag:37bda5f4-3302-4779-b835-6ae12374b6eb,virtual-kubelet.io/burst-to-cci:enforce","jobmanager.memory.process.size":"1024m","s3.secret-key":"z9WEzGmwMujvj5Mlhx0IE3DyvwsmSRtsFNgE5rtS","taskmanager.memory.process.size":"1024m","kubernetes.taskmanager.cpu":"0.25","kubernetes.container.image":"swr.cn-north-4.myhuaweicloud.com/glodon-data/kyuubi-engine-flink-1-11-6-s3:v1.20241104153439_82a001ca201","kubernetes.container.image.pull-secrets":"hw-cloud-reg","state.checkpoints.dir":"s3://gdmp-data/repository_004-gdmp-prod/flink/flink-checkpoints/5391594","kubernetes.taskmanager.memory.limit-factor":"1.5","kubernetes.jobmanager.cpu":"0.25","kubernetes.namespace":"geip-gdmp","flink.checkpoint.timeout":"60000","kubernetes.workload.common.labels":"virtual-kubelet.io/burst-to-cci:enforce","kubernetes.rest-service.exposed.type":"ClusterIp"} \
+	-pluginRoot /mnt/kyuubi/client/flinkx/syncplugins
+```
+
+## 11. Hive
+
+* 启动 Metastore： 
+
+```shell
+hive --service metastore & 
+```
+
+* 启动 HiveServer2：
+
+```shell
+hive --service hiveserver2 &
+```
+
+* 直接与hive交互：
+
+```shell
+hive.cmd
+```
+
+* 进入hive：
+
+```shell
+hive-server2
+
+cd bin
+```
+
+* 创建数据库：
+
+```shell
+./beeline -u jdbc:hive2://hiveserver2-svc:10000
+
+create database test;
+```
+
+* 连接信息：
+
+```
+host：hiveserver2-svc.geip-gdmp
+port：10000
+用户名：root
+密码：root
+defaultfs：seaweedfs://seaweedfs-filer-client.seaweedfs:8888
+```
+
+* 查看版本：
+
+```sql
+SELECT version();
+```
+
+* 执行查询分析统计：
+
+```sql
+ANALYZE TABLE ebs_swan_test_hive_partition_dt PARTITION (dt='2025-01-01', region='north') COMPUTE STATISTICS;
+```
+
+* 插入数据：
+
+```sql
+INSERT INTO test3 PARTITION (dt = '2025-02-27')
+SELECT 1 AS id,
+       1234567890123 AS bigint_col,
+       123 AS smallint_col,
+       5 AS tinyint_col,
+       12345.67 AS decimal_col,
+       87654.32 AS numeric_col,
+       123.45 AS float_col,
+       678.90 AS double_col,
+       'ABCDE' AS char_col,
+       'Hello, Hive!' AS varchar_col,
+       'This is a large text field example.' AS text_col,
+       '2025-02-27' AS date_col,
+       '2025-02-27 17:27:00' AS timestamp_col,
+       UNHEX('01020304') AS binary_col,
+       UNHEX('05060708') AS varbinary_col;
+```
+
+* 分区类型：
+
+- **TextFile**：默认格式，数据以纯文本形式存储，适合小规模数据或需要手动查看的场景
+- **SequenceFile**：二进制格式，支持压缩，适合大规模数据的高效存储
+- **ORC**：优化的列式存储，支持高效压缩、复杂数据类型和 ACID 事务，适合大规模数据分析
+- **Parquet**：列式存储，高效压缩，广泛兼容大数据工具，适合高性能查询
+- **Avro**：行式存储，支持动态模式演变，适合频繁更新的数据
+- **RCFile**：混合行式和列式存储，适合平衡读写性能的场景 
+- **JSON**：基于文本的格式，支持复杂数据结构，适合小规模数据或数据交换
+- **XML**：基于标签的格式，适合与外部系统交换数据
+
+## 12. Dameng
+
+* 创建模式下的表插入数据：
+
+```sql
+CREATE SCHEMA gdmp_test;
+
+CREATE TABLE gdmp_test.test_table (
+    id   INT PRIMARY KEY,
+    name VARCHAR(100),
+    age  INT
+);
+
+INSERT INTO gdmp_test.test_table (id, name, age) VALUES (1, '张三', 25);
+INSERT INTO gdmp_test.test_table (id, name, age) VALUES (2, '李四', 30);
+```
+
+* 查看达梦版本：
+
+```shell
+SELECT * FROM V$VERSION;
+```
+
+* 使用客户端连接：
+
+```
+disql 用户名/密码@IP地址:端口号
+disql SYSDBA/Dmsysdba_123456@10.89.233.29:9236
+```
+
+* 查看databases：
+
+```sql
+SELECT sch.name FROM sysobjects sch WHERE sch."TYPE$" = 'SCH';
+```
+
+* 查看表状态：
+
+```sql
+SELECT DBMS_METADATA.GET_DDL('TABLE', 'ebs_swan_ebs_swan_create11', 'SYSDBA') AS DDL FROM DUAL;
+
+SELECT DBMS_METADATA.GET_DDL('TABLE', 'DM2SR_DDL1', 'TEST') AS DDL FROM DUAL;
+```
+
+* 建表：
+
+```sql
+CREATE TABLE "SYSDBA"."ebs_swan_ebs_swan_new"
+(
+"f_main_id" BIGINT NOT NULL primary key ,
+"f_biz_section_id" BIGINT,
+"f_name" VARCHAR(100),
+"test1" INT,
+"test2" INT,
+"test3" INT);
+```
+
+* 查看达梦的兼容模式：
+
+![image-20250618100046820](C:\Users\liujh-r\AppData\Roaming\Typora\typora-user-images\image-20250618100046820.png)
+
+```sql
+SELECT PARA_NAME, PARA_VALUE FROM V$DM_INI WHERE PARA_NAME = 'COMPATIBLE_MODE';
+
+cd /opt/dmdbms/data/DAMENG
+
+vi dm.ini
+```
+
+* 查看日期格式：
+
+```sql
+SELECT PARA_NAME, PARA_VALUE FROM V$DM_INI WHERE PARA_NAME = 'ORA_DATE_FMT';
+默认值：ORA_DATE_FMT 的默认值为 0，表示使用达梦数据库默认的日期格式（通常是 YYYY-MM-DD HH24:MI:SS）。
+设置为 1：表示启用 Oracle 默认的日期格式（通常是 DD-MON-RR 或 DD-MON-YYYY）。
+```
+
+* 查看内存占用：
+
+```sql
+SELECT F.TABLESPACE_NAME,
+
+(T.TOTAL_SPACE - F.FREE_SPACE) / 1024 "USED (GB)",
+
+F.FREE_SPACE / 1024 "FREE (GB)",
+
+T.TOTAL_SPACE / 1024 "TOTAL(GB)",
+
+(ROUND((F.FREE_SPACE / T.TOTAL_SPACE) * 100)) || '% ' PER_FREE
+
+FROM (SELECT TABLESPACE_NAME,
+
+ROUND(SUM(BLOCKS *
+
+(SELECT PARA_VALUE / 1024
+
+FROM V$DM_INI
+
+WHERE PARA_NAME = 'GLOBAL_PAGE_SIZE') / 1024)) FREE_SPACE
+
+FROM DBA_FREE_SPACE
+
+GROUP BY TABLESPACE_NAME) F,
+
+(SELECT TABLESPACE_NAME, ROUND(SUM(BYTES / 1048576)) TOTAL_SPACE
+
+FROM DBA_DATA_FILES
+
+GROUP BY TABLESPACE_NAME) T
+
+WHERE F.TABLESPACE_NAME = T.TABLESPACE_NAME;
+```
+
+* 查看是否启用归档模式：
+
+```sql
+SELECT ARCH_MODE FROM V$DATABASE;
+SELECT * FROM V$DM_INI WHERE PARA_NAME = 'RLOG_APPEND_LOGIC';
+ALTER SYSTEM SET RLOG_APPEND_LOGIC = 1;
+```
+
+* 备份表：
+
+```sql
+CREATE TABLE test.ljh_test_backup AS
+SELECT * FROM test.ljh_test;
+```
+
+* 归档日志调试：
+
+```sql
+SP_CREATE_SYSTEM_PACKAGES (1,'DBMS_LOGMNR');
+
+select name , first_time , next_time , first_change# , next_change# from v$archived_log;
+
+dbms_logmnr.add_logfile('/opt/dmdbms/data/DAMENG/arch/ARCHIVE_LOCAL1_0x7EC334A4_EP0_2025-05-23_04-57-25.log');
+
+select low_scn, next_scn, low_time, high_time, log_id, filename from v$logmnr_logs;
+
+dbms_logmnr.start_logmnr(Options=>0 , Starttime=>to_date('2025-05-23 13:49:56','YYYY-MM-DD HH24:MI:SS') , Endtime=>to_date('2025-05-23 16:50:56','YYYY-MM-DD HH24:MI:SS'));
+
+select operation_code , scn, sql_redo , timestamp ,seg_owner, table_name from
+V$LOGMNR_CONTENTS  where operation_code in (3,1,2)
+
+select operation_code , scn, sql_redo , timestamp ,seg_owner, table_name from
+V$LOGMNR_CONTENTS where seg_owner = 'SYSDBA' and operation_code in (3,1,2);
+
+dbms_logmnr.end_logmnr();
+```
+
+* 批量改json：
+
+UPDATE t_base_data_source
+SET f_connection_json = REPLACE(
+    REPLACE(f_connection_json, '"username":"SYSDBA"', '"username":"GLODON_APP"'),
+    '"password":"Dameng_123"', '"password":"GldAceg0721DmPassw0rd"'
+)
+WHERE f_type = 15 ;
+
+## 13. Starrocks
+
+* 商业版sr信息汇总：
+
+```shell
+# 电话：400 699 8065
+
+# aecloud
+# mirrorship:
+mirrorship:
+http://10.125.167.135:19321/
+root 123456
+
+ELB： 10.125.167.235
+10.125.167.147
+10.125.167.135
+10.125.167.212
+
+FE:
+10.125.167.68
+10.125.167.159
+10.125.167.190
+
+# xmgl
+# mirrorship:
+http://10.125.155.235:19321/
+root w4D!P4hV^Lo#jHdr
+
+# SR 登录路径：
+10.125.155.235
+账号：paas
+密码：Paas@$^hw
+
+# 切换到 starrocks 账号，从 mirrorship 节点跳转到其他节点
+sudo su - starrocks
+cat /etc/hosts
+
+# 3个fe 8个be
+10.125.155.4    starrocks-fe-pd-new-0001
+10.125.155.60   starrocks-fe-pd-new-0002
+10.125.155.157  starrocks-fe-pd-new-0003
+
+10.125.155.58   starrocks-be-pd-new
+10.125.155.188  starrocks-be-pd-new-f63c-0001
+10.125.155.167  starrocks-be-pd-new-f63c-0002
+10.125.155.194  starrocks-be-pd-new-f63c-0003
+10.125.155.97   starrocks-be-pd-new-f63c-0004
+10.125.155.161  starrocks-be-pms-pd-0001
+10.125.155.218  starrocks-be-pms-pd-0002
+10.125.155.176  starrocks-be-pms-pd-0003
+
+# 切换到fe1的节点上：
+ssh starrocks@10.125.155.4
+
+# 查看日志路径：
+/data_install/workspace/starrocks/fe-ee/fe-202506130050-467f609fa4f04f0c852a89e21022d32f/log
+```
+
+
+
+* aecloud：
+* http://10.125.167.135:19321/
+  root
+  123456
+
+
+
+* 查看信息：
+
+```shell
+show frontends;
+
+show backends;
+```
+
+* 查看catalog：
+
+```sql
+show catalogs;
+```
+
+* 查看catalog的详情：
+
+```sql
+show CREATE catalog iceberg_ljh_test;
+```
+
+* 创建外部catalog语句： 
+
+  关闭缓存：enable_iceberg_metadata_cache
+
+  sr3.4版本加参数：iceberg.catalog.vended-credentials-enabled
+
+```sql
+CREATE EXTERNAL CATALOG `iceberg_ljh_dev`
+comment "容器云开发catalog"
+PROPERTIES (
+"type"  =  "iceberg",
+"aws.s3.access_key"  =  "xxx",
+"aws.s3.secret_key"  =  "xxx",
+"aws.s3.enable_ssl"  =  "false",
+"aws.s3.endpoint"  =  "https://obs.cn-north-4.myhuaweicloud.com",
+"aws.s3.region"  =  "cn-north-4",
+"aws.s3.enable_path_style_access"  =  "false",
+"iceberg.catalog.uri"  =  "http://10.9.88.148:30902/iceberg",
+"iceberg.catalog.credential"  =  "生成的授权sk",
+"iceberg.catalog.warehouse"  =  "s3://gdmp-hdfs-test/lake-house-geip-fat",
+"iceberg.catalog.type"  =  "rest",
+"iceberg.catalog.prefix"  =  "ljh_with_path",
+"iceberg.catalog.scope"  =  "ljh_with_path",
+"s3.access-key-id"  =  "xxx",
+"s3.secret-access-key"  =  "xxx",
+"s3.endpoint"  =  "https://obs.cn-north-4.myhuaweicloud.com",
+"enable_iceberg_metadata_cache" = "false",
+"iceberg.catalog.vended-credentials-enabled" = "false"
+);
+
+CREATE EXTERNAL CATALOG `iceberg_test`
+comment "Iceberg"
+PROPERTIES (
+"type"  =  "iceberg",
+"s3.access-key-id"  =  "9ZH9TMWRBOGNBX7CRRPA",
+"s3.secret-access-key"  =  "z9WEzGmwMujvj5Mlhx0IE3DyvwsmSRtsFNgE5rtS",
+"s3.endpoint"  =  "https://obs.cn-north-4.myhuaweicloud.com",
+"aws.s3.access_key"  =  "9ZH9TMWRBOGNBX7CRRPA",
+"aws.s3.secret_key"  =  "z9WEzGmwMujvj5Mlhx0IE3DyvwsmSRtsFNgE5rtS",
+"aws.s3.enable_ssl"  =  "false",
+"aws.s3.endpoint"  =  "https://obs.cn-north-4.myhuaweicloud.com",
+"aws.s3.region"  =  "cn-north-4",
+"aws.s3.enable_path_style_access"  =  "true",
+"iceberg.catalog.uri"  =  "http://10.9.88.148:30902/iceberg",
+"iceberg.catalog.credential"  =  "8vnyiInIGpo7qI-xS0JTFMsPoQaF45nwxeKekuLtbT0",
+"iceberg.catalog.warehouse"  =  "s3://gdmp-data/warehouse/dtc_liurx/gdmp_dev/catalogOnObs",
+"iceberg.catalog.type"  =  "rest",
+"iceberg.catalog.prefix"  =  "catalogOnObs",
+"iceberg.catalog.scope"  =  "catalogOnObs",
+"iceberg.catalog.vended-credentials-enabled" = "false",
+"enable_iceberg_metadata_cache" = "false"
+);
+
+CREATE EXTERNAL CATALOG `paimon_iceberg_compaction_gde` 
+comment "paimon_iceberg_兼容元数据_test_gde" PROPERTIES (
+	"iceberg.catalog.scope" = "paimon_iceberg_compaction_gde", 
+    "aws.s3.access_key" = "HP******EK", 
+    "s3.path-style-access" = "false", 
+    "aws.s3.secret_key" = "mf******bX", 
+    "iceberg.catalog.gravitino.enabled" = "true",
+    "enable_iceberg_metadata_cache" = "false", 
+    "aws.s3.endpoint" = "https://obs.cn-north-4.myhuaweicloud.com", 
+    "aws.s3.enable_ssl" = "false", 
+    "iceberg.catalog.credential" = "mM******yA", 
+    "aws.s3.enable_path_style_access" = "false", 
+    "iceberg.catalog.uri" = "http://gdmp-iceberg-test.glodon.com/iceberg", 
+    "type" = "iceberg", 
+    "iceberg.catalog.vended-credentials-enabled" = "false", 
+    "s3.access-key-id" = "HPUA8AQHKYFVIRY2K9EK", 
+    "s3.secret-access-key" = "mfSrkuHgYvL7J7qN6Yvl5jxXpN7i7k69yKQQbubX", 
+    "s3.endpoint" = "https://obs.cn-north-4.myhuaweicloud.com", 
+    "iceberg.catalog.gravitino.metalake" = "metalake", 
+    "aws.s3.region" = "cn-north-4", 
+    "iceberg.catalog.warehouse" = "s3://gde-data-test/biz-model-data/paimon_iceberg_compaction_gde", 
+    "iceberg.catalog.prefix" = "paimon_iceberg_compaction_gde", 
+    "iceberg.catalog.type" = "rest" 
+)
+```
+
+* 导出parquet文件：
+
+```shell
+INSERT INTO
+FILES(
+    "path" = "s3://gdmp-hdfs-test/lake-house-geip-milestone/cde-output",
+    "format" = "parquet",
+    "compression" = "zstd",
+    "single" = "true",
+    "aws.s3.access_key" = "9ZH9TMWRBOGNBX7CRRPA",
+    "aws.s3.secret_key" = "z9WEzGmwMujvj5Mlhx0IE3DyvwsmSRtsFNgE5rtS",
+    "aws.s3.region" = "cn-north-4",
+    "aws.s3.endpoint" = "https://obs.cn-north-4.myhuaweicloud.com"
+)
+SELECT * FROM cde.cde_ods.t_ods_quantity;
+
+INSERT INTO
+FILES(
+    "path" = concat('s3://gdmp-hdfs-test/lake-house-geip-milestone/cde-output/data/f_project_id=', CAST(f_project_id AS STRING), '/'),
+    "format" = "parquet",
+    "compression" = "zstd",
+    "single" = "true",
+    "aws.s3.access_key" = "9ZH9TMWRBOGNBX7CRRPA",
+    "aws.s3.secret_key" = "z9WEzGmwMujvj5Mlhx0IE3DyvwsmSRtsFNgE5rtS",
+    "aws.s3.region" = "cn-north-4",
+    "aws.s3.endpoint" = "https://obs.cn-north-4.myhuaweicloud.com"
+)
+SELECT * FROM cde.cde_ods.t_ods_quantity;
+```
+
+
+
+* 设置当前的catalog：
+
+```sql
+set catalog iceberg_ljh_test_oauth;
+```
+
+* 查询catalog下的表信息：
+
+```sql
+select * from iceberg_ljh_test_oauth.highway.t_result limit 10;
+```
+
+* 修改外挂的catalog信息：
+
+```sql
+ALTER CATALOG `iceberg_ljh_test_oauth`
+SET (
+  "iceberg.catalog.credential" = "eyJjYXRhbG9nTmFtZSI6ImNhdGFsb2dPbk9zcyIsImFjY2Vzc0tleUlkIjoiQUtJRC01ZmE1ZTEwMGU3MDc0NTE5Iiwic2VjcmV0QWNjZXNzS2V5IjoiMXRucDlXeEdGMndfSHEyVU5lVWlJMUxXYkJSTnFjZnY0alZybU1oNmxrMCJ9"
+);
+
+ALTER CATALOG `iceberg_ljh_test_oauth`
+SET (
+  "iceberg.catalog.vended-credentials-enabled" = "true"
+);
+```
+
+* catalog相关专用：
+
+```sql
+show catalogs;
+
+show CREATE catalog iceberg_ljh_test_oauth2;
+show CREATE catalog iceberg_ljh_test_ecs;
+
+select * from iceberg_ljh_test_oauth.highway.t_result limit 10;
+select * from iceberg_ljh_test_ecs.highway.t_result limit 10;
+# 容器云开发rest
+select * from iceberg_ljh_test_oauth2.test_db_01.yangle_test_section_ods_test_model_0002 limit 10;
+```
+
+* 查询会话级别的超时时间：
+
+```sql
+SHOW VARIABLES LIKE 'query_timeout';
+
+SHOW VARIABLES LIKE 'max_allowed_packet';
+
+enable_iceberg_metadata_cache
+```
+
+* 设置会话级别的查询超时时间：300s
+
+```sql
+SET GLOBAL query_timeout =10800;
+
+set GLOBAL max_allowed_packet = 33554432;
+```
+
+* 查看变更状态：
+
+```sql
+SHOW ALTER TABLE COLUMN where TableName = 'b13' order by CreateTime desc;
+```
+
+* 错误地址：
+
+```html
+http://10.244.113.53:8040/api/_load_error_log?file=error_log_684311ad1dccbc5d_83f4fee25247c0bf
+```
+
+2.5数据恢复与备份
+
+* 文档地址：https://docs.starrocks.io/zh/docs/2.5/administration/Meta_recovery/
+
+* 查看fe的日志：
+
+```shell
+cd fe/log
+
+tail -f fe.log
+
+less fe.log
+
+grep "ERROR" fe.log
+```
+
+* 备份元数据后删除fe的元数据：
+
+```shell
+mkdir /fe/log/backup_meta
+
+cp -r /fe/meta /fe/log/backup_meta/
+
+rm -rf /fe/meta/*
+```
+
+* 查看fe节点的信息：
+
+```shell
+mysql -h127.0.0.1 -uroot -P9030
+```
+
+* 查看fe节点的角色和信息：
+
+类型是从节点，类型是完全限定的域名地址，审计端口是9010，
+
+```shell
+cat fe/meta/image/ROLE
+
+#Thu May 15 23:03:11 CST 2025
+role=FOLLOWER
+hostType=FQDN
+name=starrocks-cluster-fe-0.starrocks-cluster-fe-search.starrocks.svc.cluster.local_9010_1747316887950
+```
+
+* 数据和元数据完整可以创建镜像文件：
+
+```shell
+ALTER SYSTEM CREATE IMAGE;
+```
+
+* 从 BDBJE 日志中查看 Follower 节点的总数：
+
+```shell
+grep "Current group size" fe/meta/bdb/je.info.0
+```
+
+* 基于FQDN重启fe节点：
+
+```shell
+/fe/bin/start_fe.sh --host_type FQDN --daemon
+```
+
+* 查看fe节点的gc情况判断内存是否不足，不足就是有问题得加内存：
+
+```shell
+# 一秒采集一次 共采集10次
+jstat -gcutil pid 1000 10
+```
+
+* 从follower启动为leader，fe.conf添加：
+
+```shell
+metadata_failure_recovery = true
+```
+
+* 干掉之前的节点：
+
+```shell
+ALTER SYSTEM DROP FOLLOWER "starrocks-cluster-fe-0.starrocks-cluster-fe-search.starrocks.svc.cluster.local:9010";
+```
+
+* 用leader的帮助启动当前的fe节点：
+
+```shell
+./fe/bin/start_fe.sh --helper <leader_ip>:<leader_edit_log_port> --daemon
+```
+
+* 重新添加回集群：
+
+```shell
+ALTER SYSTEM ADD FOLLOWER "starrocks-cluster-fe-0.starrocks-cluster-fe-search.starrocks.svc.cluster.local:9010";
+```
+
+* 查看be：
+
+```shell
+be\conf\be.conf mem_limit参数
+```
+
+* 诊断be：
+
+```shell
+{
+    echo "=== be.WARNING (last 1000 lines) ==="
+    tail -n 1000 be.WARNING
+    echo -e "\n\n=== be.out (last 500 lines) ==="
+    tail -n 500 be.out
+    echo -e "\n\n=== Metrics: starrocks_be_process_mem_bytes ==="
+    curl -s "http://127.0.0.1:8040/metrics?prefix=starrocks_be_process_mem_bytes"
+    echo -e "\n\n=== Metrics: starrocks_be_query_mem_bytes ==="
+    curl -s "http://127.0.0.1:8040/metrics?prefix=starrocks_be_query_mem_bytes"
+    echo -e "\n\n=== Metrics: starrocks_be_load_mem_bytes ==="
+    curl -s "http://127.0.0.1:8040/metrics?prefix=starrocks_be_load_mem_bytes"
+    echo -e "\n\n=== free -h ==="
+    free -h
+} > be_memory_diagnosis.txt
+```
+
+
+
+## 14. Git
+
+* 查看分支：
+
+```shell
+git branch
+```
+
+* 强制删除分支：
+
+```shell
+git branch -D private/liujh-r/DBZdefaultValueFix
+```
+
+* 回滚一个文件：
+
+```shell
+git checkout -- build.gradle.kts
+```
+
+* 清空缓存的信息：
+
+```shell
+git reset
+git clean -fd
+```
+
+* 查看换行符：
+
+```shell
+git config --get core.autocrlf
+```
+
+* 切换：
+
+```shell
+```
+
+
+
+## 15. Hadoop
+
+* 启动hadoop：
+
+```shell
+start-dfs.cmd
+```
+
+## 16. Docker
+
+* 查看正在运行的容器：
+
+```shell
+docker ps
+```
+
+* 停止正在运行的容器：
+
+```shell
+docker stop 13fe3006ee61
+```
+
+* 查看镜像列表：
+
+```shell
+docker images
+```
+
+* 构建镜像：
+
+```shell
+docker build -t hub.glodon.com/glodon-service/iceberg-rest-catalog:v1.3 .
+
+docker build -f gravitino-Dockerfile -t test .
+```
+
+* 打标签：
+
+```shell
+docker tag hub.glodon.com/glodon-service/iceberg-rest-catalog:v1.3 hub.glodon.com/glodon-service/iceberg-rest-catalog:v1.3
+
+docker tag hub.glodon.com/glodon-service/gdmp-gravitino:v1.1 hub.glodon.com/glodon-service/gdmp-gravitino:v1.1
+
+docker tag ubuntu20.04-docker-env:latest hub.glodon.com/glodon-pub/ubuntu:ubuntu-gravitino-20.04
+```
+
+* 推送镜像到公司镜像库：
+
+```shell
+docker push hub.glodon.com/glodon-service/iceberg-rest-catalog:v1.3
+
+docker push hub.glodon.com/glodon-service/gdmp-gravitino:v1.1
+
+docker push hub.glodon.com/glodon-pub/ubuntu:ubuntu-gravitino-20.04
+```
+
+
+
+* 使用arm镜像构建：
+
+```shell
+docker buildx build --pull --platform linux/arm64 --push --build-arg PKG_NAME=app --build-arg VERSION=v1 -f ./docker/Dockerfile -t hub.glodon.com/glodon-service/kyuubi-engine-shell-centos7-linkis-version:v1.20250313141438_a4c5012a2d7 ./docker
+```
+
+* 拉取镜像：
+
+```shell
+docker pull hub.glodon.com/glodon-service/kyuubi-engine-shell-centos7-linkis-version:v1.20250313141438_a4c5012a2d7
+```
+
+* 进入镜像：
+
+```shell
+docker run -it --rm hub.glodon.com/glodon-service/kyuubi-engine-shell-centos7-linkis-version:v1.20250313141438_a4c5012a2d7 /bin/bash
+```
+
+* 保存镜像为tar包：
+
+```shell
+docker save -o kyuubi-engine-shell-centos7-linkis-version_v1.tar \
+hub.glodon.com/glodon-service/kyuubi-engine-shell-centos7-linkis-version:v1.20240523164255_f1e20f8297e
+```
+
+* 加载tar包：
+
+```shell
+docker load -i kyuubi-engine-shell-centos7-linkis-version_v1.tar
+```
+
+* 复制的方式推送到hub：
+
+```shell
+/data2/makeImage/regctl image copy centos:centos7 hub.glodon.com/glodon-pub/centos:centos7 -v info
+
+/data2/makeImage/regctl image copy ubuntu20.04--docker-env:latest hub.glodon.com/glodon-pub/ubuntu:ubuntu-gravitino-20.04 -v info
+
+regctl image copy ubuntu20.04--docker-env:latest hub.glodon.com/glodon-pub/ubuntu:ubuntu-gravitino-20.04 --ref-by-index -v info
+```
+
+* 删除镜像：
+
+```shell
+docker rmi ubuntu20.04--docker-env:latest
+```
+
+## 17. Duckdb
+
+* 进入自己的数据库：
+
+```sql
+duckdb test.db
+```
+
+* 或者
+
+```sql
+.open test.db
+```
+
+* 查看数据库：
+
+```sql
+show databases;
+.database
+```
+
+* 结构化数据sql查询：
+
+```sql
+CREATE TABLE employees (
+      id INTEGER PRIMARY KEY,
+      name VARCHAR(50),
+      age INTEGER,
+      department VARCHAR(50)
+  );
+  
+select * from employees;
+```
+
+* 退出交互：
+
+```	sql
+.quit
+```
+
+* 查看当前的秘钥：
+
+```sql
+from duckdb_secrets();
+```
+
+* 查看安装的插件：
+
+```sql
+SELECT * FROM duckdb_extensions();
+```
+
+
+
+## 18. Zookeeper
+
+* 
+
+
+
+## 19. Bigdata-test
+
+* 自定义调试：
+
+```shell
+java -cp /tmp/bigdata_test-1.0-SNAPSHOT-jar-with-dependencies.jar org.testng.TestNG /tmp/testsuite_Bigdata_release.xml
+```
+
+## 20. Sqlserver
+
+* 查看数据库：
+
+```sql
+EXEC sp_databases;
+```
+
+* 查看版本：
+
+```sql
+SELECT @@VERSION;
+```
+
+## 21. Gradle
+
+* 清理：
+
+```shell
+gradle clean
+```
+
+* 编译gravitino：
+
+```shell
+gradle compileDistribution -x test -PjdkVersion=17
+```
+
+* 构建gravitino：
+
+```shell
+gradle assembleDistribution -x test -PjdkVersion=17
+```
+
+* 加载驱动：
+
+```shell
+cp /home/visitor/liujh-r/gradle-8.2/gdmp-repository/caches/modules-2/files-2.1/com.mysql/mysql-connector-j/8.0.33/9e64d997873abc4318620264703d3fdb6b02dd5a/mysql-connector-j-8.0.33.jar /home/visitor/liujh-r/gdmp_gravitino/distribution/package/libs/
+
+cp /home/visitor/liujh-r/gradle-8.2/gdmp-repository/caches/modules-2/files-2.1/com.mysql/mysql-connector-j/8.0.33/9e64d997873abc4318620264703d3fdb6b02dd5a/mysql-connector-j-8.0.33.jar /Users/liurx-mac/code/github/gravitino/distribution/package/iceberg-rest-server/libs
+```
+
+## 22. Helm
+
+* 本地渲染结果：
+
+```shell
+helm template D:\gdmp-scheduler\gdmp-scheduler\gdmp-scheduler-master\src\main\resources\helm-chart> test.yaml
+
+helm template D:\gdmp-gravitino\iceberg\iceberg-rest-server\src\main\resources\helm-chart> test.yaml
+```
+
+## 23. Jvm
+
+* 查看GC情况：
+
+```shell
+jstat -gc 34
+
+jstat -gccause 40
+```
+
+* 列出当前堆中对象的数量和大小（并触发一次 Full GC）：
+
+```shell
+jmap -histo:live 34
+
+jmap -histo 34 > heap_histo_all.txt
+
+jmap -histo:live 34 > heap_histo_live.txt
+```
+
+* 查看堆外内存：(需要打开：Native memory tracking is not enabled
+
+```shell
+jcmd 34 VM.native_memory summary
+```
+
+* 排查死锁或线程阻塞问题：
+
+```shell
+jstack 34 > /tmp/thread_dump.log
+```
+
+* 查看 JVM 启动参数：
+
+```shell
+jinfo 34
+
+jinfo 34 | grep MaxHeapSize
+```
+
+* dump快照：
+
+```shell
+jmap -dump:live,format=b,file=test.hprof 34
+```
+
+* 查看GC情况：
+
+```shell
+jstat -gcutil 40 1000
+```
+
+* GC调优：
+
+| `-XX:+UseG1GC`              | 启用 G1 垃圾收集器                 | G1（Garbage-First）是一种现代化的垃圾回收器，适合大堆（>4GB）、低延迟的应用。它能自动划分堆为多个区域（Region），并优先回收垃圾最多的区域，减少停顿时间。 |
+| --------------------------- | ---------------------------------- | ------------------------------------------------------------ |
+| `-Xmn4g`                    | 设置新生代大小为 4GB               | `-Xmn` 是设置 **年轻代（Young Generation）** 的总大小。年轻代包括 Eden 区和两个 Survivor 区（S0/S1）。设置为 4g 表示新生代占 4GB 内存。增大新生代可以减少 Young GC 的频率。 |
+| `-XX:G1HeapRegionSize=4m`   | 设置 G1 的每个 Region 大小为 4MB   | G1 将堆划分为多个等大小的 Region。默认是自动决定（1MB ~ 32MB）。设置为 4m 表示每个 Region 是 4MB。这会影响“巨型对象（Humongous Object）”的判定（>2MB 的对象就可能被视为巨型对象）。 |
+| `-XX:MaxMetaspaceSize=512m` | 设置 Metaspace 最大为 512MB        | Metaspace 存放类的元数据（如类名、方法、字段等）。默认无上限，可能耗尽系统内存。设置上限可防止内存溢出。 |
+| `-XX:MetaspaceSize=256m`    | 设置 Metaspace 初始大小为 256MB    | 当 Metaspace 使用达到此值时，会触发 GC 来回收无用的类。设置合理值可减少早期 Metaspace GC 次数。 |
+| `-Xlog:gc*:gc.log:time`     | 开启 GC 日志，输出到文件并带时间戳 | <ul><li>`gc*`：记录所有 GC 相关日志</li><li>`gc.log`：日志输出到当前目录的 `gc.log` 文件</li><li>`time`：每条日志前加上时间戳（如 `[2025-08-08T15:20:30.123]`）</li></ul>这是 JDK 9+ 的新日志系统语法，用于分析 GC 性能。 |
+
+
+
+ 推荐操作流程：
+
+1. **先用 `jstat -gc` 查看老年代是否持续增长**
+2. **再用 `jmap -histo:live` 看是否有可疑的大对象**
+3. **如果怀疑堆外内存，使用 `jcmd VM.native_memory summary`**
+4. **确认后可执行 `jmap -dump` 生成 heap dump 文件**
+5. **使用 `kubectl cp` 把 dump 文件复制出来，用 Eclipse MAT 或 jVisualVM 分析**
+
+
+
+## 24. DS
+
+* 统计任务流实例情况：
+* Status: 0 commit succeeded, 1 running, 2 prepare to pause, 3 pause, 4 prepare to stop, 5 stop, 6 fail, 7 succeed, 8 need fault tolerance, 9 kill, 10 wait for thread, 11 wait for dependency to complete
+
+```sql
+select state,count(*) from t_ds_process_instance group by state;
+
+select state,count(*) from t_ds_task_instance group by state;
+
+select f_state, count(*) from gdmp_task_center.t_tc_task_instance group by f_state;
+```
+
+* 直接更新：
+
+```sql
+update t_ds_process_instance set state=6 where state=1;
+
+update t_ds_task_instance set state=6 where state=1;
+
+update gdmp_task_center.t_tc_task_instance set f_state=6 where f_state=1;
+```
+
+## 25. Java
+
+* 执行一个jar包：
+
+```shell
+java -jar D:\ecs-cloud-base-sdk\ecs-lake\lake-in\target\test-import.jar
+```
+
+* 查看avro：
+* <img src="https://ucc.alicdn.com/pic/developer-ecology/23a630f88a894377b252979ed08b5e84.png?x-oss-process=image%2Fresize%2Cw_1400%2Cm_lfit%2Fformat%2Cwebp" alt="image.png" style="zoom:50%;" />
+
+```shell
+# 查看metadata.json
+select * from iceberg_tables where table_name = 't_ods_quantity';
+
+# 查看对应的manifest-list文件
+java -jar avro-tools-1.9.2.jar tojson snap-8891817799506991637-1-2f24665f-e9a3-4fda-a821-2840d3d81fd0.avro
+
+{"manifest_path":"s3://gtcp-lake-test/cde_new/cde_new_ods/t_ods_quantity/metadata/2f24665f-e9a3-4fda-a821-2840d3d81fd0-m0.avro","manifest_length":8697,"partition_spec_id":0,"content":0,"sequence_number":1,"min_sequence_number":1,"added_snapshot_id":8891817799506991637,"added_files_count":13,"existing_files_count":0,"deleted_files_count":0,"added_rows_count":2796404,"existing_rows_count":0,"deleted_rows_count":0,"partitions":{"array":[{"contains_null":false,"contains_nan":{"boolean":false},"lower_bound":{"bytes":"A脕\u0012貌虏聻\u0003\u0000"},"upper_bound":{"bytes":"R脕\u0012貌虏聻\u0003\u0000"}}]}}
+
+# 查看对应的manifest文件
+java -jar avro-tools-1.9.2.jar tojson 2f24665f-e9a3-4fda-a821-2840d3d81fd0-m0.avro
+
+# 查看对应的data文件
+"file_path": "s3://gtcp-lake-test/data/20250724149012/1018916332814659/gip_Quantity.parquet"
+"file_format": "PARQUET"
+```
+
+
+
+## 26. Arthas
+
+* 下载：
+
+```java
+curl -O https://arthas.aliyun.com/arthas-boot.jar
+```
+
+* 分析内存：
+
+```shell
+memory
+```
+
+
+
+## 27. Spark
+
+```shell
+CALL cde_new.system.rewrite_manifests(table => 'cde_new_ods.t_ods_bid')
+CALL cde_new.system.remove_orphan_files(table => 'cde_new_ods.t_ods_bid')
+CALL cde_new.system.rewrite_data_files(table => 't_ods_bid', options => map('min-input-files','1','delete-file-threshold','1'))
+
+-- 查看表的文件信息（判断是否真的需要重写）
+CALL cde_new.system.plan_rewrites('cde_new_dwd.dwd_t_engineering_quantity');
+
+-- 查看快照历史（重写会生成新快照）
+SELECT * FROM cde_new_dwd.dwd_t_engineering_quantity.history;
+
+-- 清理过期快照和文件（可选，节省空间）
+CALL cde_new.system.expire_snapshots(
+  table => 'cde_new_dwd.dwd_t_engineering_quantity',
+  older_than => TIMESTAMPADD(DAY, -7, CURRENT_TIMESTAMP)
+);
+```
+
+
+
+
+
+
+
+
+
