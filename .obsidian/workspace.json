@@ -1,0 +1,196 @@
+{
+  "main": {
+    "id": "0e014a2144c1c48b",
+    "type": "split",
+    "children": [
+      {
+        "id": "d5ffe60351cf9577",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "f0a3489ee0419c78",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "WORKSPACE/工作/广联达/2026/01-daily/2026.05.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "2026.05"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "d1cca52c6354dd76",
+    "type": "split",
+    "children": [
+      {
+        "id": "c2b8c0930efdf3a2",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "afb2c083ab26b0d0",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "a8540f66061dbdfd",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "59f74b3f7c7670a7",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 255.50260543823242
+  },
+  "right": {
+    "id": "d8ec742ce49be681",
+    "type": "split",
+    "children": [
+      {
+        "id": "b34f9e9c233bdffe",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "59ddd171b0a58883",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "WORKSPACE/工作/广联达/2026/01-daily/2026.04.md",
+                "collapseAll": true,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks for 2026.04"
+            }
+          },
+          {
+            "id": "708ecd206ea6c027",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "WORKSPACE/工作/广联达/2026/01-daily/2026.04.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links from 2026.04"
+            }
+          },
+          {
+            "id": "d7f997a381f35c72",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "5dfd21f84f3b975a",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "WORKSPACE/工作/广联达/2026/01-daily/2026.04.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline of 2026.04"
+            }
+          },
+          {
+            "id": "6be9ec9736dfd0b7",
+            "type": "leaf",
+            "state": {
+              "type": "todo",
+              "state": {},
+              "icon": "checkmark",
+              "title": "Todo List"
+            }
+          }
+        ],
+        "currentTab": 4
+      }
+    ],
+    "direction": "horizontal",
+    "width": 478.5
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "bases:Create new base": false
+    }
+  },
+  "active": "f0a3489ee0419c78",
+  "lastOpenFiles": [
+    "WORKSPACE/工作/广联达/2026/09-研发/gravitino.md",
+    "WORKSPACE/工作/广联达/2026/01-daily/2026.05.md",
+    "WORKSPACE/工作/广联达/2026/01-daily/2026.04.md",
+    "WORKSPACE/工作/广联达/文档索引.md",
+    "WORKSPACE/工作/广联达/2026/11-内部/价值量化与成本分摊.md",
+    "WORKSPACE/工作/广联达/2026/任务书.md",
+    "WORKSPACE/工作/广联达/2026/11-内部",
+    "WORKSPACE/工作/广联达/2026/02-内部讨论/本地化开发/DTC本地AI开发.md",
+    "WORKSPACE/工作/广联达/2026/02-内部讨论/本地化开发",
+    "WORKSPACE/工作/广联达/2026/07-湖仓一体/000-盘盘盘/湖仓一体笔记.md",
+    "WORKSPACE/工作/广联达/2026/07-dtc专项/绩效/绩效.md"
+  ]
+}
