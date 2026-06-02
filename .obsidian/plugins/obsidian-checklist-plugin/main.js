@@ -5706,7 +5706,6 @@ var DEFAULT_SETTINGS = {
   todoPageName: "todo",
   showChecked: false,
   showAllTodos: false,
-  showOnlyActiveFile: false,
   autoRefresh: true,
   subGroups: false,
   groupBy: "page",
@@ -5747,12 +5746,6 @@ var TodoSettingTab = class extends import_obsidian.PluginSettingTab {
       toggle.setValue(this.plugin.getSettingValue("showAllTodos"));
       toggle.onChange((value) => __async(this, null, function* () {
         yield this.plugin.updateSettings({ showAllTodos: value });
-      }));
-    });
-    new import_obsidian.Setting(this.containerEl).setName("Show only in currently active file?").setDesc("Show only todos present in currently active file?").addToggle((toggle) => {
-      toggle.setValue(this.plugin.getSettingValue("showOnlyActiveFile"));
-      toggle.onChange((value) => __async(this, null, function* () {
-        yield this.plugin.updateSettings({ showOnlyActiveFile: value });
       }));
     });
     new import_obsidian.Setting(this.containerEl).setName("Grouping & Sorting");
@@ -6300,7 +6293,7 @@ var getFileFromPath = (vault, path) => {
   let file = vault.getAbstractFileByPath(path);
   if (file instanceof import_obsidian2.TFile)
     return file;
-  const files = vault.getMarkdownFiles();
+  const files = vault.getFiles();
   file = files.find((e) => e.name === path);
   if (file instanceof import_obsidian2.TFile)
     return file;
@@ -8131,11 +8124,6 @@ var TodoListView = class extends import_obsidian4.ItemView {
           return;
         yield this.refresh();
       })));
-      this.registerEvent(this.app.workspace.on("active-leaf-change", () => __async(this, null, function* () {
-        if (!this.plugin.getSettingValue("showOnlyActiveFile"))
-          return;
-        yield this.refresh();
-      })));
       this.registerEvent(this.app.vault.on("delete", (file) => this.deleteFile(file.path)));
       this.refresh();
     });
@@ -8178,7 +8166,7 @@ var TodoListView = class extends import_obsidian4.ItemView {
   }
   calculateAllItems() {
     return __async(this, null, function* () {
-      const todosForUpdatedFiles = yield parseTodos(this.app.vault.getMarkdownFiles(), this.todoTagArray.length === 0 ? ["*"] : this.visibleTodoTagArray, this.app.metadataCache, this.app.vault, this.plugin.getSettingValue("includeFiles"), this.plugin.getSettingValue("showChecked"), this.plugin.getSettingValue("showAllTodos"), this.lastRerender);
+      const todosForUpdatedFiles = yield parseTodos(this.app.vault.getFiles(), this.todoTagArray.length === 0 ? ["*"] : this.visibleTodoTagArray, this.app.metadataCache, this.app.vault, this.plugin.getSettingValue("includeFiles"), this.plugin.getSettingValue("showChecked"), this.plugin.getSettingValue("showAllTodos"), this.lastRerender);
       for (const [file, todos] of todosForUpdatedFiles) {
         this.itemsByFile.set(file.path, todos);
       }
@@ -8186,10 +8174,7 @@ var TodoListView = class extends import_obsidian4.ItemView {
   }
   groupItems() {
     const flattenedItems = Array.from(this.itemsByFile.values()).flat();
-    const viewOnlyOpen = this.plugin.getSettingValue("showOnlyActiveFile");
-    const openFile = this.app.workspace.getActiveFile();
-    const filteredItems = viewOnlyOpen ? flattenedItems.filter((i) => i.filePath === openFile.path) : flattenedItems;
-    const searchedItems = filteredItems.filter((e) => e.originalText.toLowerCase().includes(this.searchTerm.toLowerCase()));
+    const searchedItems = flattenedItems.filter((e) => e.originalText.toLowerCase().includes(this.searchTerm.toLowerCase()));
     this.groupedItems = groupTodos(searchedItems, this.plugin.getSettingValue("groupBy"), this.plugin.getSettingValue("sortDirectionGroups"), this.plugin.getSettingValue("sortDirectionItems"), this.plugin.getSettingValue("subGroups"), this.plugin.getSettingValue("sortDirectionSubGroups"));
   }
   renderView() {
@@ -8295,5 +8280,3 @@ var TodoPlugin = class extends import_obsidian5.Plugin {
     return this.settings[setting];
   }
 };
-
-/* nosourcemap */

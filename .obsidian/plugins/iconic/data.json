@@ -1,0 +1,721 @@
+{
+  "biggerIcons": "mobile",
+  "clickableIcons": "desktop",
+  "showAllFileIcons": true,
+  "showAllFolderIcons": true,
+  "minimalFolderIcons": false,
+  "showItemName": "desktop",
+  "biggerSearchResults": "mobile",
+  "maxSearchResults": 50,
+  "colorPicker1": "list",
+  "colorPicker2": "rgb",
+  "uncolorHover": false,
+  "uncolorDrag": false,
+  "uncolorSelect": false,
+  "uncolorQuick": false,
+  "rememberDeletedItems": false,
+  "dialogState": {
+    "iconMode": true,
+    "emojiMode": false,
+    "rulePage": "file"
+  },
+  "appIcons": {},
+  "tabIcons": {},
+  "fileIcons": {
+    "WORKSPACE": {
+      "icon": "lucide-chart-network",
+      "unsynced": [
+        "049d509b870aaa2f",
+        "5426856363ffe060",
+        "4db1c75bd4348c49"
+      ],
+      "color": "green"
+    },
+    "WORKSPACE/工作": {
+      "icon": "lucide-chart-network",
+      "unsynced": [
+        "7d6d216e731ba98e",
+        "049d509b870aaa2f",
+        "5426856363ffe060",
+        "4db1c75bd4348c49"
+      ],
+      "color": "cyan"
+    },
+    "WORKSPACE/工作/HALO": {
+      "icon": "lucide-hand-metal",
+      "unsynced": [
+        "049d509b870aaa2f",
+        "5426856363ffe060",
+        "4db1c75bd4348c49"
+      ],
+      "color": "pink"
+    },
+    "WORKSPACE/工作/广联达": {
+      "icon": "lucide-globe",
+      "unsynced": [
+        "5426856363ffe060",
+        "4db1c75bd4348c49"
+      ],
+      "color": "cyan"
+    },
+    "WORKSPACE/工作/广联达/2024": {
+      "color": "cyan",
+      "unsynced": [
+        "6f0dd0426ac97369",
+        "4b138d7ef53c6ec7",
+        "ad41d7a53053407b",
+        "d64fcb21792c8bbb",
+        "7d6d216e731ba98e",
+        "049d509b870aaa2f",
+        "5426856363ffe060",
+        "4db1c75bd4348c49"
+      ],
+      "icon": "lucide-clock-4"
+    },
+    "WORKSPACE/工作/广联达/2025": {
+      "icon": "lucide-clock-5",
+      "unsynced": [
+        "6f0dd0426ac97369",
+        "4b138d7ef53c6ec7",
+        "ad41d7a53053407b",
+        "d64fcb21792c8bbb",
+        "7d6d216e731ba98e",
+        "049d509b870aaa2f",
+        "5426856363ffe060",
+        "4db1c75bd4348c49"
+      ],
+      "color": "yellow"
+    },
+    "WORKSPACE/工作/广联达/2025/01-Daily": {
+      "icon": "lucide-calendar-days",
+      "unsynced": [
+        "6f0dd0426ac97369",
+        "4b138d7ef53c6ec7",
+        "ad41d7a53053407b",
+        "d64fcb21792c8bbb",
+        "7d6d216e731ba98e",
+        "049d509b870aaa2f",
+        "5426856363ffe060",
+        "4db1c75bd4348c49"
+      ],
+      "color": "orange"
+    },
+    "WORKSPACE/工作/广联达/2025/01-Daily/2025.01.md": {
+      "icon": "lucide-database-zap"
+    },
+    "WORKSPACE/工作/广联达/2025/01-Daily/2025.02.md": {
+      "icon": "lucide-database-zap",
+      "color": "gray"
+    },
+    "WORKSPACE/工作/广联达/2025/01-Daily/2025.03.md": {
+      "icon": "lucide-database-zap",
+      "color": "gray"
+    },
+    "WORKSPACE/工作/广联达/2025/01-Daily/2025.04.md": {
+      "icon": "lucide-database-zap",
+      "color": "gray"
+    },
+    "WORKSPACE/工作/广联达/2025/01-Daily/2025.05.md": {
+      "icon": "lucide-database-zap",
+      "color": "gray"
+    },
+    "WORKSPACE/工作/广联达/2025/01-Daily/2025.06.md": {
+      "icon": "lucide-database-zap"
+    },
+    "WORKSPACE/工作/广联达/2025/01-Daily/2025.07.md": {
+      "icon": "lucide-database-zap"
+    },
+    "WORKSPACE/工作/广联达/2025/01-Daily/2025.08.md": {
+      "icon": "lucide-database-zap",
+      "color": "gray"
+    },
+    "WORKSPACE/工作/广联达/2025/01-Daily/2025.09.md": {
+      "icon": "lucide-database-zap",
+      "color": "gray"
+    },
+    "WORKSPACE/工作/广联达/2025/01-Daily/2025.10.md": {
+      "icon": "lucide-database-zap",
+      "color": "gray"
+    },
+    "WORKSPACE/工作/广联达/2025/01-Daily/2025.11.md": {
+      "icon": "lucide-database-zap",
+      "color": "gray"
+    },
+    "WORKSPACE/工作/广联达/2025/01-Daily/2025.12.md": {
+      "icon": "lucide-database-zap",
+      "color": "yellow"
+    },
+    "WORKSPACE/工作/广联达/2025/02-专项": {
+      "icon": "lucide-mail-x",
+      "unsynced": [
+        "6f0dd0426ac97369",
+        "4b138d7ef53c6ec7",
+        "ad41d7a53053407b",
+        "d64fcb21792c8bbb",
+        "7d6d216e731ba98e",
+        "049d509b870aaa2f",
+        "5426856363ffe060",
+        "4db1c75bd4348c49"
+      ],
+      "color": "cyan"
+    },
+    "WORKSPACE/工作/广联达/2025/02-专项/03-GDE湖仓一体/Spark on Iceberg验证.md": {
+      "icon": "lucide-text-select",
+      "color": "green"
+    },
+    "WORKSPACE/工作/广联达/2025/02-专项/09-数据血缘/血缘建设.md": {
+      "icon": "lucide-book-key",
+      "color": "purple"
+    },
+    "WORKSPACE/工作/广联达/2025/02-专项/11-阿里云/阿里里里里啊.md": {
+      "icon": "lucide-notepad-text",
+      "color": "orange"
+    },
+    "WORKSPACE/工作/广联达/2025/02-专项/12-年度吹牛逼/各种P花样P.md": {
+      "icon": "lucide-kanban-square",
+      "color": "red"
+    },
+    "WORKSPACE/工作/广联达/2025/02-专项/14-湖仓技术攻关/周报汇总.md": {
+      "icon": "lucide-square-dashed-mouse-pointer",
+      "color": "blue"
+    },
+    "WORKSPACE/工作/广联达/2025/03-研发&设计": {
+      "icon": "lucide-folder-code",
+      "unsynced": [
+        "6f0dd0426ac97369",
+        "4b138d7ef53c6ec7",
+        "ad41d7a53053407b",
+        "d64fcb21792c8bbb",
+        "7d6d216e731ba98e",
+        "049d509b870aaa2f",
+        "5426856363ffe060",
+        "4db1c75bd4348c49"
+      ],
+      "color": "green"
+    },
+    "WORKSPACE/工作/广联达/2025/03-研发&设计/01-技术方案/湖仓一体方案/湖仓一体方案框架.md": {
+      "icon": "lucide-scan-barcode",
+      "color": "blue"
+    },
+    "WORKSPACE/工作/广联达/2025/04-汇报&会议": {
+      "icon": "lucide-paw-print",
+      "unsynced": [
+        "6f0dd0426ac97369",
+        "4b138d7ef53c6ec7",
+        "ad41d7a53053407b",
+        "d64fcb21792c8bbb",
+        "7d6d216e731ba98e",
+        "049d509b870aaa2f",
+        "5426856363ffe060",
+        "4db1c75bd4348c49"
+      ],
+      "color": "pink"
+    },
+    "WORKSPACE/工作/广联达/2025/04-汇报&会议/年度吹牛逼/BP.md": {
+      "icon": "lucide-bell-plus",
+      "color": "red"
+    },
+    "WORKSPACE/工作/广联达/2025/04-汇报&会议/技术攻关/纪要.md": {
+      "icon": "lucide-message-square-text",
+      "color": "blue"
+    },
+    "WORKSPACE/工作/广联达/2025/05-团队": {
+      "icon": "lucide-tree-palm",
+      "unsynced": [
+        "ad41d7a53053407b",
+        "d64fcb21792c8bbb",
+        "7d6d216e731ba98e",
+        "049d509b870aaa2f",
+        "5426856363ffe060",
+        "4db1c75bd4348c49"
+      ],
+      "color": "pink"
+    },
+    "WORKSPACE/工作/广联达/2025/05-团队/数据工具链部门/GoGoGo.md": {
+      "icon": "lucide-badge-dollar-sign",
+      "color": "cyan"
+    },
+    "WORKSPACE/工作/广联达/2026": {
+      "icon": "lucide-clock-6",
+      "unsynced": [
+        "7d6d216e731ba98e",
+        "049d509b870aaa2f",
+        "5426856363ffe060",
+        "4db1c75bd4348c49"
+      ],
+      "color": "blue"
+    },
+    "WORKSPACE/工作/广联达/2026/01-daily": {
+      "icon": "lucide-calendar-days",
+      "unsynced": [
+        "049d509b870aaa2f",
+        "5426856363ffe060",
+        "4db1c75bd4348c49"
+      ],
+      "color": "blue"
+    },
+    "WORKSPACE/工作/广联达/2026/01-daily/2026.01.md": {
+      "icon": "lucide-clock-1",
+      "color": "gray"
+    },
+    "WORKSPACE/工作/广联达/2026/01-daily/2026.02.md": {
+      "icon": "lucide-clock-2",
+      "color": "gray"
+    },
+    "WORKSPACE/工作/广联达/2026/01-daily/2026.03.md": {
+      "icon": "lucide-clock-3",
+      "color": "gray"
+    },
+    "WORKSPACE/工作/广联达/2026/01-daily/2026.04.md": {
+      "icon": "lucide-clock-4",
+      "color": "gray"
+    },
+    "WORKSPACE/工作/广联达/2026/01-daily/2026.05.md": {
+      "icon": "lucide-clock-5",
+      "color": "gray"
+    },
+    "WORKSPACE/工作/广联达/2026/01-daily/2026.06.md": {
+      "icon": "lucide-clock-6",
+      "color": "green"
+    },
+    "WORKSPACE/工作/广联达/2026/02-内部讨论": {
+      "icon": "lucide-chart-spline",
+      "unsynced": [
+        "4db1c75bd4348c49"
+      ],
+      "color": "cyan"
+    },
+    "WORKSPACE/工作/广联达/2026/03-申报": {
+      "icon": "lucide-layout-dashboard",
+      "unsynced": [
+        "4db1c75bd4348c49"
+      ],
+      "color": "cyan"
+    },
+    "WORKSPACE/工作/广联达/2026/03-申报/一季度": {
+      "icon": "lucide-calendar-1",
+      "unsynced": [
+        "4db1c75bd4348c49"
+      ]
+    },
+    "WORKSPACE/工作/广联达/2026/03-申报/一季度/轻量化-微服务治理/微服务治理申报(2026一季度团队).md": {
+      "icon": "lucide-git-pull-request-draft",
+      "color": "cyan"
+    },
+    "WORKSPACE/工作/广联达/2026/05-内外需求": {
+      "icon": "lucide-align-vertical-space-between",
+      "unsynced": [
+        "049d509b870aaa2f",
+        "5426856363ffe060",
+        "4db1c75bd4348c49"
+      ],
+      "color": "cyan"
+    },
+    "WORKSPACE/工作/广联达/2026/05-内外需求/02-PML": {
+      "icon": "lucide-panel-bottom-close",
+      "unsynced": [
+        "4db1c75bd4348c49"
+      ],
+      "color": "cyan"
+    },
+    "WORKSPACE/工作/广联达/2026/05-内外需求/L4沟通.md": {
+      "icon": "lucide-tally-4"
+    },
+    "WORKSPACE/工作/广联达/2026/07-dtc专项": {
+      "icon": "lucide-list-indent-increase",
+      "unsynced": [
+        "049d509b870aaa2f",
+        "5426856363ffe060",
+        "4db1c75bd4348c49"
+      ],
+      "color": "purple"
+    },
+    "WORKSPACE/工作/广联达/2026/07-dtc专项/企业级专项": {
+      "icon": "lucide-laptop-minimal-check",
+      "unsynced": [
+        "049d509b870aaa2f",
+        "5426856363ffe060",
+        "4db1c75bd4348c49"
+      ],
+      "color": "purple"
+    },
+    "WORKSPACE/工作/广联达/2026/07-dtc专项/企业级专项/AI开发提效": {
+      "icon": "lucide-airplay",
+      "color": "purple",
+      "unsynced": [
+        "4db1c75bd4348c49"
+      ]
+    },
+    "WORKSPACE/工作/广联达/2026/07-dtc专项/企业级专项/AI开发提效/AI开发台账查询周记.md": {
+      "icon": "lucide-ferris-wheel",
+      "color": "purple"
+    },
+    "WORKSPACE/工作/广联达/2026/07-dtc专项/企业级专项/AI开发提效/最终方案确认.md": {
+      "icon": "lucide-file-terminal",
+      "color": "purple"
+    },
+    "WORKSPACE/工作/广联达/2026/07-dtc专项/拌合站": {
+      "color": "purple",
+      "unsynced": [
+        "4db1c75bd4348c49"
+      ]
+    },
+    "WORKSPACE/工作/广联达/2026/07-dtc专项/服务合并组件合并": {
+      "color": "purple",
+      "unsynced": [
+        "4db1c75bd4348c49"
+      ]
+    },
+    "WORKSPACE/工作/广联达/2026/07-dtc专项/绩效": {
+      "color": "purple",
+      "unsynced": [
+        "4db1c75bd4348c49"
+      ]
+    },
+    "WORKSPACE/工作/广联达/2026/07-dtc专项/资金决策被动采集": {
+      "color": "purple",
+      "unsynced": [
+        "4db1c75bd4348c49"
+      ]
+    },
+    "WORKSPACE/工作/广联达/2026/07-dtc专项/资金决策被动采集/架构图.md": {
+      "icon": "lucide-file-json",
+      "color": "purple"
+    },
+    "WORKSPACE/工作/广联达/2026/07-dtc专项/轻计算对比": {
+      "color": "purple",
+      "unsynced": [
+        "4db1c75bd4348c49"
+      ]
+    },
+    "WORKSPACE/工作/广联达/2026/07-湖仓一体": {
+      "icon": "lucide-chart-column-stacked",
+      "unsynced": [
+        "049d509b870aaa2f",
+        "5426856363ffe060",
+        "4db1c75bd4348c49"
+      ],
+      "color": "blue"
+    },
+    "WORKSPACE/工作/广联达/2026/09-研发": {
+      "icon": "lucide-sliders-vertical",
+      "unsynced": [
+        "049d509b870aaa2f",
+        "5426856363ffe060",
+        "4db1c75bd4348c49"
+      ],
+      "color": "pink"
+    },
+    "WORKSPACE/工作/广联达/2026/10-会议": {
+      "icon": "lucide-gamepad-directional",
+      "unsynced": [
+        "4db1c75bd4348c49"
+      ],
+      "color": "blue"
+    },
+    "WORKSPACE/工作/广联达/2026/任务书.md": {
+      "icon": "lucide-chart-network",
+      "color": "pink"
+    },
+    "WORKSPACE/工作/广联达/文档索引.md": {
+      "icon": "lucide-receipt-pound-sterling",
+      "color": "red"
+    },
+    "WORKSPACE/工作/广联达/部署环境": {
+      "icon": "open-vault",
+      "unsynced": [
+        "049d509b870aaa2f",
+        "5426856363ffe060",
+        "4db1c75bd4348c49"
+      ],
+      "color": "purple"
+    },
+    "WORKSPACE/工作/广联达/部署环境/k8s/k8s信息.md": {
+      "icon": "lucide-list-checks",
+      "color": "purple"
+    },
+    "WORKSPACE/工作/广联达/部署环境/工具链交付/新成本.md": {
+      "icon": "lucide-sailboat",
+      "color": "orange"
+    },
+    "WORKSPACE/工作/广联达/部署环境/环境整理.md": {
+      "icon": "lucide-book-key",
+      "color": "orange"
+    },
+    "WORKSPACE/技术": {
+      "icon": "lucide-scatter-chart",
+      "unsynced": [
+        "d64fcb21792c8bbb",
+        "7d6d216e731ba98e",
+        "049d509b870aaa2f",
+        "5426856363ffe060",
+        "4db1c75bd4348c49"
+      ],
+      "color": "green"
+    },
+    "WORKSPACE/技术/AI": {
+      "icon": "lucide-brain",
+      "unsynced": [
+        "049d509b870aaa2f",
+        "5426856363ffe060",
+        "4db1c75bd4348c49"
+      ],
+      "color": "blue"
+    },
+    "WORKSPACE/技术/AI/ai2sql": {
+      "icon": "lucide-squirrel",
+      "unsynced": [
+        "4db1c75bd4348c49"
+      ],
+      "color": "cyan"
+    },
+    "WORKSPACE/技术/AI/ai2sql/ai2dsl2sql.md": {
+      "icon": "lucide-file-audio-2",
+      "color": "blue"
+    },
+    "WORKSPACE/技术/AI/上车上车": {
+      "icon": "lucide-book-heart",
+      "unsynced": [
+        "4db1c75bd4348c49"
+      ],
+      "color": "blue"
+    },
+    "WORKSPACE/技术/AI/翻车了": {
+      "icon": "lucide-landmark",
+      "unsynced": [
+        "049d509b870aaa2f",
+        "5426856363ffe060",
+        "4db1c75bd4348c49"
+      ],
+      "color": "yellow"
+    },
+    "WORKSPACE/技术/DataTech": {
+      "icon": "lucide-database-backup",
+      "unsynced": [
+        "6f0dd0426ac97369",
+        "4b138d7ef53c6ec7",
+        "ad41d7a53053407b",
+        "d64fcb21792c8bbb",
+        "7d6d216e731ba98e",
+        "049d509b870aaa2f",
+        "5426856363ffe060",
+        "4db1c75bd4348c49"
+      ],
+      "color": "red"
+    },
+    "WORKSPACE/技术/DataTech/Flink": {
+      "icon": "lucide-flame-kindling",
+      "unsynced": [
+        "049d509b870aaa2f",
+        "5426856363ffe060",
+        "4db1c75bd4348c49"
+      ],
+      "color": "blue"
+    },
+    "WORKSPACE/技术/DataTech/Flink/源码系列": {
+      "icon": "lucide-soup",
+      "unsynced": [
+        "049d509b870aaa2f",
+        "5426856363ffe060",
+        "4db1c75bd4348c49"
+      ],
+      "color": "cyan"
+    },
+    "WORKSPACE/技术/DataTech/Flink/源码系列/01-整体架构.md": {
+      "icon": "lucide-heading-1",
+      "color": "cyan"
+    },
+    "WORKSPACE/技术/DataTech/Flink/源码系列/02-时间与Watermark.md": {
+      "icon": "lucide-heading-2",
+      "color": "cyan"
+    },
+    "WORKSPACE/技术/DataTech/Kafka": {
+      "icon": "lucide-chart-spline",
+      "unsynced": [
+        "6f0dd0426ac97369",
+        "4b138d7ef53c6ec7",
+        "ad41d7a53053407b",
+        "d64fcb21792c8bbb",
+        "7d6d216e731ba98e",
+        "049d509b870aaa2f",
+        "5426856363ffe060",
+        "4db1c75bd4348c49"
+      ],
+      "color": "blue"
+    },
+    "WORKSPACE/技术/DataTech/Kafka/lag describe.md": {
+      "icon": "lucide-flag"
+    },
+    "WORKSPACE/技术/DataTech/Starrocks&Doris": {
+      "icon": "lucide-component",
+      "unsynced": [
+        "ad41d7a53053407b",
+        "d64fcb21792c8bbb",
+        "7d6d216e731ba98e",
+        "049d509b870aaa2f",
+        "5426856363ffe060",
+        "4db1c75bd4348c49"
+      ],
+      "color": "cyan"
+    },
+    "WORKSPACE/技术/DataTech/Starrocks&Doris/BE内存排查.md": {
+      "color": "cyan"
+    },
+    "WORKSPACE/技术/DataTech/Starrocks&Doris/be启动jvm设置.md": {
+      "color": "cyan"
+    },
+    "WORKSPACE/技术/DataTech/k8s": {
+      "icon": "lucide-washing-machine",
+      "unsynced": [
+        "049d509b870aaa2f",
+        "5426856363ffe060",
+        "4db1c75bd4348c49"
+      ],
+      "color": "yellow"
+    },
+    "WORKSPACE/技术/DataTech/业界方案": {
+      "icon": "lucide-command",
+      "unsynced": [
+        "ad41d7a53053407b",
+        "d64fcb21792c8bbb",
+        "7d6d216e731ba98e",
+        "049d509b870aaa2f",
+        "5426856363ffe060",
+        "4db1c75bd4348c49"
+      ],
+      "color": "cyan"
+    },
+    "WORKSPACE/技术/DataTech/业界良心.md": {
+      "icon": "lucide-gamepad-2",
+      "color": "green"
+    },
+    "WORKSPACE/技术/DataTech/湖说⑧道": {
+      "icon": "lucide-slack",
+      "unsynced": [
+        "ad41d7a53053407b",
+        "d64fcb21792c8bbb",
+        "7d6d216e731ba98e",
+        "049d509b870aaa2f",
+        "5426856363ffe060",
+        "4db1c75bd4348c49"
+      ],
+      "color": "green"
+    },
+    "WORKSPACE/技术/DataTech/湖说⑧道/Datafusion": {
+      "icon": "lucide-file-chart-column-increasing",
+      "unsynced": [
+        "049d509b870aaa2f",
+        "5426856363ffe060",
+        "4db1c75bd4348c49"
+      ],
+      "color": "cyan"
+    },
+    "WORKSPACE/技术/DataTech/湖说⑧道/DuckDB": {
+      "icon": "lucide-cloud-sun",
+      "unsynced": [
+        "7d6d216e731ba98e",
+        "049d509b870aaa2f",
+        "5426856363ffe060",
+        "4db1c75bd4348c49"
+      ],
+      "color": "green"
+    },
+    "WORKSPACE/技术/DataTech/湖说⑧道/Flink": {
+      "icon": "lucide-flame-kindling",
+      "unsynced": [
+        "7d6d216e731ba98e",
+        "049d509b870aaa2f",
+        "5426856363ffe060",
+        "4db1c75bd4348c49"
+      ],
+      "color": "purple"
+    },
+    "WORKSPACE/技术/DataTech/湖说⑧道/Flink/读书.md": {
+      "icon": "lucide-square-dashed-mouse-pointer",
+      "color": "green"
+    },
+    "WORKSPACE/技术/DataTech/湖说⑧道/Iceberg": {
+      "icon": "dice",
+      "unsynced": [
+        "6f0dd0426ac97369",
+        "4b138d7ef53c6ec7",
+        "ad41d7a53053407b",
+        "d64fcb21792c8bbb",
+        "7d6d216e731ba98e",
+        "049d509b870aaa2f",
+        "5426856363ffe060",
+        "4db1c75bd4348c49"
+      ],
+      "color": "cyan"
+    },
+    "WORKSPACE/技术/DataTech/湖说⑧道/Iceberg/catalog server/catalog Server启动流程.md": {
+      "color": "green"
+    },
+    "WORKSPACE/技术/DataTech/湖说⑧道/Iceberg/compact.md": {
+      "icon": "lucide-combine",
+      "color": "green"
+    },
+    "WORKSPACE/技术/DataTech/湖说⑧道/Paimon": {
+      "icon": "lucide-parking-circle",
+      "unsynced": [
+        "d64fcb21792c8bbb",
+        "7d6d216e731ba98e",
+        "049d509b870aaa2f",
+        "5426856363ffe060",
+        "4db1c75bd4348c49"
+      ],
+      "color": "green"
+    },
+    "WORKSPACE/技术/DataTech/湖说⑧道/Paimon/湖仓调研过程.md": {
+      "color": "orange"
+    },
+    "WORKSPACE/技术/DataTech/湖说⑧道/gravitino": {
+      "icon": "lucide-git-branch-plus",
+      "unsynced": [
+        "d64fcb21792c8bbb",
+        "7d6d216e731ba98e",
+        "049d509b870aaa2f",
+        "5426856363ffe060",
+        "4db1c75bd4348c49"
+      ],
+      "color": "pink"
+    },
+    "WORKSPACE/技术/DataTech/湖说⑧道/gravitino/release1.0.md": {
+      "icon": "lucide-book-text",
+      "color": "blue"
+    },
+    "WORKSPACE/技术/LInux&NET": {
+      "color": "blue",
+      "unsynced": [
+        "6f0dd0426ac97369",
+        "4b138d7ef53c6ec7",
+        "ad41d7a53053407b",
+        "d64fcb21792c8bbb",
+        "7d6d216e731ba98e",
+        "049d509b870aaa2f",
+        "5426856363ffe060",
+        "4db1c75bd4348c49"
+      ]
+    },
+    "WORKSPACE/技术/coding": {
+      "icon": "lucide-codepen",
+      "unsynced": [
+        "4db1c75bd4348c49"
+      ],
+      "color": "cyan"
+    },
+    "WORKSPACE/技术/coding/java": {
+      "icon": "lucide-coffee",
+      "unsynced": [
+        "4db1c75bd4348c49"
+      ],
+      "color": "green"
+    }
+  },
+  "bookmarkIcons": {},
+  "tagIcons": {},
+  "propertyIcons": {},
+  "ribbonIcons": {},
+  "fileRules": [],
+  "folderRules": []
+}

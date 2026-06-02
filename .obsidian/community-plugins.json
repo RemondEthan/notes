@@ -1,3 +1,8 @@
 [
-  "obsidian-checklist-plugin"
+  "obsidian-checklist-plugin",
+  "obsidian-tasks-plugin",
+  "obsidian-icons-plugin",
+  "obsidian-excel-to-markdown-table",
+  "iconic",
+  "drawio-obsidian"
 ]

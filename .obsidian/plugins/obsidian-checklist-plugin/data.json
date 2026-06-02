@@ -1,0 +1,23 @@
+{
+  "todoPageName": "todo",
+  "showChecked": false,
+  "showAllTodos": false,
+  "autoRefresh": true,
+  "subGroups": false,
+  "groupBy": "page",
+  "sortDirectionItems": "new->old",
+  "sortDirectionGroups": "new->old",
+  "sortDirectionSubGroups": "new->old",
+  "includeFiles": "",
+  "lookAndFeel": "classic",
+  "_collapsedSections": [
+    "WORKSPACE/工作/广联达/2024/数据中台/01-Daily/2024.11.md",
+    "WORKSPACE/工作/广联达/2024/数据中台/01-Daily/2024.12.md",
+    "WORKSPACE/工作/广联达/2024/数据中台/01-Daily/2024.09.md",
+    "WORKSPACE_del/工作/广联达/2025/01-Daily/2025.05.md",
+    "WORKSPACE_del/工作/广联达/2025/01-Daily/2025.02.md",
+    "WORKSPACE_del/工作/广联达/2025/01-Daily/2025.06.md",
+    "WORKSPACE_del/工作/广联达/2025/01-Daily/2025.03.md"
+  ],
+  "_hiddenTags": []
+}
