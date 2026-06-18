@@ -27,7 +27,8 @@
       "unsynced": [
         "049d509b870aaa2f",
         "5426856363ffe060",
-        "4db1c75bd4348c49"
+        "4db1c75bd4348c49",
+        "ad41d7a53053407b"
       ],
       "color": "green"
     },
@@ -37,7 +38,8 @@
         "7d6d216e731ba98e",
         "049d509b870aaa2f",
         "5426856363ffe060",
-        "4db1c75bd4348c49"
+        "4db1c75bd4348c49",
+        "ad41d7a53053407b"
       ],
       "color": "cyan"
     },
@@ -46,7 +48,8 @@
       "unsynced": [
         "049d509b870aaa2f",
         "5426856363ffe060",
-        "4db1c75bd4348c49"
+        "4db1c75bd4348c49",
+        "ad41d7a53053407b"
       ],
       "color": "pink"
     },
@@ -54,7 +57,8 @@
       "icon": "lucide-globe",
       "unsynced": [
         "5426856363ffe060",
-        "4db1c75bd4348c49"
+        "4db1c75bd4348c49",
+        "ad41d7a53053407b"
       ],
       "color": "cyan"
     },
@@ -241,7 +245,8 @@
         "7d6d216e731ba98e",
         "049d509b870aaa2f",
         "5426856363ffe060",
-        "4db1c75bd4348c49"
+        "4db1c75bd4348c49",
+        "ad41d7a53053407b"
       ],
       "color": "blue"
     },
@@ -250,7 +255,8 @@
       "unsynced": [
         "049d509b870aaa2f",
         "5426856363ffe060",
-        "4db1c75bd4348c49"
+        "4db1c75bd4348c49",
+        "ad41d7a53053407b"
       ],
       "color": "blue"
     },
@@ -281,21 +287,24 @@
     "WORKSPACE/工作/广联达/2026/02-内部讨论": {
       "icon": "lucide-chart-spline",
       "unsynced": [
-        "4db1c75bd4348c49"
+        "4db1c75bd4348c49",
+        "ad41d7a53053407b"
       ],
       "color": "cyan"
     },
     "WORKSPACE/工作/广联达/2026/03-申报": {
       "icon": "lucide-layout-dashboard",
       "unsynced": [
-        "4db1c75bd4348c49"
+        "4db1c75bd4348c49",
+        "ad41d7a53053407b"
       ],
       "color": "cyan"
     },
     "WORKSPACE/工作/广联达/2026/03-申报/一季度": {
       "icon": "lucide-calendar-1",
       "unsynced": [
-        "4db1c75bd4348c49"
+        "4db1c75bd4348c49",
+        "ad41d7a53053407b"
       ]
     },
     "WORKSPACE/工作/广联达/2026/03-申报/一季度/轻量化-微服务治理/微服务治理申报(2026一季度团队).md": {
@@ -307,26 +316,60 @@
       "unsynced": [
         "049d509b870aaa2f",
         "5426856363ffe060",
-        "4db1c75bd4348c49"
+        "4db1c75bd4348c49",
+        "ad41d7a53053407b"
       ],
       "color": "cyan"
+    },
+    "WORKSPACE/工作/广联达/2026/05-内外需求/01-连接场景": {
+      "color": "cyan",
+      "unsynced": [
+        "ad41d7a53053407b"
+      ]
     },
     "WORKSPACE/工作/广联达/2026/05-内外需求/02-PML": {
       "icon": "lucide-panel-bottom-close",
       "unsynced": [
-        "4db1c75bd4348c49"
+        "4db1c75bd4348c49",
+        "ad41d7a53053407b"
       ],
       "color": "cyan"
+    },
+    "WORKSPACE/工作/广联达/2026/05-内外需求/02-PML/年中检视.md": {
+      "icon": "lucide-gallery-vertical-end",
+      "color": "green"
+    },
+    "WORKSPACE/工作/广联达/2026/05-内外需求/03-公路算量-PML": {
+      "icon": "lucide-panel-bottom-close",
+      "unsynced": [
+        "ad41d7a53053407b"
+      ],
+      "color": "cyan"
+    },
+    "WORKSPACE/工作/广联达/2026/05-内外需求/03-公路算量-PML/公路算量&PML方案.md": {
+      "icon": "lucide-panel-top-inactive",
+      "color": "yellow"
+    },
+    "WORKSPACE/工作/广联达/2026/05-内外需求/04-工程数据沟通": {
+      "icon": "lucide-badge-check",
+      "unsynced": [
+        "ad41d7a53053407b"
+      ],
+      "color": "cyan"
+    },
+    "WORKSPACE/工作/广联达/2026/05-内外需求/04-工程数据沟通/工程数据底层数据平台说明.md": {
+      "icon": "lucide-square-dashed-bottom-code"
     },
     "WORKSPACE/工作/广联达/2026/05-内外需求/L4沟通.md": {
       "icon": "lucide-tally-4"
     },
     "WORKSPACE/工作/广联达/2026/07-dtc专项": {
-      "icon": "lucide-list-indent-increase",
+      "icon": "lucide-graduation-cap",
       "unsynced": [
         "049d509b870aaa2f",
         "5426856363ffe060",
-        "4db1c75bd4348c49"
+        "4db1c75bd4348c49",
+        "ad41d7a53053407b"
       ],
       "color": "purple"
     },
@@ -335,7 +378,8 @@
       "unsynced": [
         "049d509b870aaa2f",
         "5426856363ffe060",
-        "4db1c75bd4348c49"
+        "4db1c75bd4348c49",
+        "ad41d7a53053407b"
       ],
       "color": "purple"
     },
@@ -343,7 +387,8 @@
       "icon": "lucide-airplay",
       "color": "purple",
       "unsynced": [
-        "4db1c75bd4348c49"
+        "4db1c75bd4348c49",
+        "ad41d7a53053407b"
       ]
     },
     "WORKSPACE/工作/广联达/2026/07-dtc专项/企业级专项/AI开发提效/AI开发台账查询周记.md": {
@@ -357,25 +402,29 @@
     "WORKSPACE/工作/广联达/2026/07-dtc专项/拌合站": {
       "color": "purple",
       "unsynced": [
-        "4db1c75bd4348c49"
+        "4db1c75bd4348c49",
+        "ad41d7a53053407b"
       ]
     },
     "WORKSPACE/工作/广联达/2026/07-dtc专项/服务合并组件合并": {
       "color": "purple",
       "unsynced": [
-        "4db1c75bd4348c49"
+        "4db1c75bd4348c49",
+        "ad41d7a53053407b"
       ]
     },
     "WORKSPACE/工作/广联达/2026/07-dtc专项/绩效": {
       "color": "purple",
       "unsynced": [
-        "4db1c75bd4348c49"
+        "4db1c75bd4348c49",
+        "ad41d7a53053407b"
       ]
     },
     "WORKSPACE/工作/广联达/2026/07-dtc专项/资金决策被动采集": {
       "color": "purple",
       "unsynced": [
-        "4db1c75bd4348c49"
+        "4db1c75bd4348c49",
+        "ad41d7a53053407b"
       ]
     },
     "WORKSPACE/工作/广联达/2026/07-dtc专项/资金决策被动采集/架构图.md": {
@@ -385,7 +434,8 @@
     "WORKSPACE/工作/广联达/2026/07-dtc专项/轻计算对比": {
       "color": "purple",
       "unsynced": [
-        "4db1c75bd4348c49"
+        "4db1c75bd4348c49",
+        "ad41d7a53053407b"
       ]
     },
     "WORKSPACE/工作/广联达/2026/07-湖仓一体": {
@@ -393,7 +443,8 @@
       "unsynced": [
         "049d509b870aaa2f",
         "5426856363ffe060",
-        "4db1c75bd4348c49"
+        "4db1c75bd4348c49",
+        "ad41d7a53053407b"
       ],
       "color": "blue"
     },
@@ -402,16 +453,33 @@
       "unsynced": [
         "049d509b870aaa2f",
         "5426856363ffe060",
-        "4db1c75bd4348c49"
+        "4db1c75bd4348c49",
+        "ad41d7a53053407b"
       ],
       "color": "pink"
     },
     "WORKSPACE/工作/广联达/2026/10-会议": {
-      "icon": "lucide-gamepad-directional",
+      "icon": "lucide-meh",
       "unsynced": [
-        "4db1c75bd4348c49"
+        "4db1c75bd4348c49",
+        "ad41d7a53053407b"
       ],
       "color": "blue"
+    },
+    "WORKSPACE/工作/广联达/2026/11-分享资料": {
+      "icon": "lucide-share-2",
+      "unsynced": [
+        "ad41d7a53053407b"
+      ],
+      "color": "blue"
+    },
+    "WORKSPACE/工作/广联达/2026/11-分享资料/公路算量 & PML 数据打通方案分享.md": {
+      "icon": "lucide-arrows-up-from-line",
+      "color": "orange"
+    },
+    "WORKSPACE/工作/广联达/2026/11-分享资料/公路算量与PML贯通分享.md": {
+      "icon": "lucide-salad",
+      "color": "gray"
     },
     "WORKSPACE/工作/广联达/2026/任务书.md": {
       "icon": "lucide-chart-network",
@@ -426,7 +494,8 @@
       "unsynced": [
         "049d509b870aaa2f",
         "5426856363ffe060",
-        "4db1c75bd4348c49"
+        "4db1c75bd4348c49",
+        "ad41d7a53053407b"
       ],
       "color": "purple"
     },
@@ -449,7 +518,8 @@
         "7d6d216e731ba98e",
         "049d509b870aaa2f",
         "5426856363ffe060",
-        "4db1c75bd4348c49"
+        "4db1c75bd4348c49",
+        "ad41d7a53053407b"
       ],
       "color": "green"
     },
@@ -458,14 +528,16 @@
       "unsynced": [
         "049d509b870aaa2f",
         "5426856363ffe060",
-        "4db1c75bd4348c49"
+        "4db1c75bd4348c49",
+        "ad41d7a53053407b"
       ],
       "color": "blue"
     },
     "WORKSPACE/技术/AI/ai2sql": {
       "icon": "lucide-squirrel",
       "unsynced": [
-        "4db1c75bd4348c49"
+        "4db1c75bd4348c49",
+        "ad41d7a53053407b"
       ],
       "color": "cyan"
     },
@@ -476,7 +548,8 @@
     "WORKSPACE/技术/AI/上车上车": {
       "icon": "lucide-book-heart",
       "unsynced": [
-        "4db1c75bd4348c49"
+        "4db1c75bd4348c49",
+        "ad41d7a53053407b"
       ],
       "color": "blue"
     },
@@ -485,7 +558,8 @@
       "unsynced": [
         "049d509b870aaa2f",
         "5426856363ffe060",
-        "4db1c75bd4348c49"
+        "4db1c75bd4348c49",
+        "ad41d7a53053407b"
       ],
       "color": "yellow"
     },
@@ -508,7 +582,8 @@
       "unsynced": [
         "049d509b870aaa2f",
         "5426856363ffe060",
-        "4db1c75bd4348c49"
+        "4db1c75bd4348c49",
+        "ad41d7a53053407b"
       ],
       "color": "blue"
     },
@@ -517,7 +592,8 @@
       "unsynced": [
         "049d509b870aaa2f",
         "5426856363ffe060",
-        "4db1c75bd4348c49"
+        "4db1c75bd4348c49",
+        "ad41d7a53053407b"
       ],
       "color": "cyan"
     },
@@ -569,7 +645,8 @@
       "unsynced": [
         "049d509b870aaa2f",
         "5426856363ffe060",
-        "4db1c75bd4348c49"
+        "4db1c75bd4348c49",
+        "ad41d7a53053407b"
       ],
       "color": "yellow"
     },
@@ -606,7 +683,8 @@
       "unsynced": [
         "049d509b870aaa2f",
         "5426856363ffe060",
-        "4db1c75bd4348c49"
+        "4db1c75bd4348c49",
+        "ad41d7a53053407b"
       ],
       "color": "cyan"
     },
@@ -616,7 +694,8 @@
         "7d6d216e731ba98e",
         "049d509b870aaa2f",
         "5426856363ffe060",
-        "4db1c75bd4348c49"
+        "4db1c75bd4348c49",
+        "ad41d7a53053407b"
       ],
       "color": "green"
     },
@@ -626,7 +705,8 @@
         "7d6d216e731ba98e",
         "049d509b870aaa2f",
         "5426856363ffe060",
-        "4db1c75bd4348c49"
+        "4db1c75bd4348c49",
+        "ad41d7a53053407b"
       ],
       "color": "purple"
     },
@@ -662,7 +742,8 @@
         "7d6d216e731ba98e",
         "049d509b870aaa2f",
         "5426856363ffe060",
-        "4db1c75bd4348c49"
+        "4db1c75bd4348c49",
+        "ad41d7a53053407b"
       ],
       "color": "green"
     },
@@ -676,7 +757,8 @@
         "7d6d216e731ba98e",
         "049d509b870aaa2f",
         "5426856363ffe060",
-        "4db1c75bd4348c49"
+        "4db1c75bd4348c49",
+        "ad41d7a53053407b"
       ],
       "color": "pink"
     },
@@ -700,14 +782,16 @@
     "WORKSPACE/技术/coding": {
       "icon": "lucide-codepen",
       "unsynced": [
-        "4db1c75bd4348c49"
+        "4db1c75bd4348c49",
+        "ad41d7a53053407b"
       ],
       "color": "cyan"
     },
     "WORKSPACE/技术/coding/java": {
       "icon": "lucide-coffee",
       "unsynced": [
-        "4db1c75bd4348c49"
+        "4db1c75bd4348c49",
+        "ad41d7a53053407b"
       ],
       "color": "green"
     }

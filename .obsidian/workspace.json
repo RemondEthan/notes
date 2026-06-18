@@ -1,56 +1,41 @@
 {
   "main": {
-    "id": "fd64cf54ef9750cc",
+    "id": "0e014a2144c1c48b",
     "type": "split",
     "children": [
       {
-        "id": "0df79fe1ccdea443",
+        "id": "d5ffe60351cf9577",
         "type": "tabs",
         "children": [
           {
-            "id": "e0c954331f1c6047",
+            "id": "f0a3489ee0419c78",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "WORKSPACE/工作/广联达/2026/10-会议/DTC IPaaS讨论.md",
+                "file": "WORKSPACE/工作/广联达/2026/11-分享资料/公路算量 & PML 数据打通方案分享.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "DTC IPaaS讨论"
-            }
-          },
-          {
-            "id": "93a940f668ae6cd9",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "WORKSPACE/工作/广联达/2026/01-daily/2026.06.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "2026.06"
+              "title": "公路算量 & PML 数据打通方案分享"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
   },
   "left": {
-    "id": "8456436a0dfa1ddd",
+    "id": "d1cca52c6354dd76",
     "type": "split",
     "children": [
       {
-        "id": "cca88e090eecaefc",
+        "id": "c2b8c0930efdf3a2",
         "type": "tabs",
         "children": [
           {
-            "id": "c1b4219d710929c3",
+            "id": "afb2c083ab26b0d0",
             "type": "leaf",
             "state": {
               "type": "file-explorer",
@@ -59,11 +44,11 @@
                 "autoReveal": false
               },
               "icon": "lucide-folder-closed",
-              "title": "文件列表"
+              "title": "Files"
             }
           },
           {
-            "id": "3cdfd7297de27a7c",
+            "id": "a8540f66061dbdfd",
             "type": "leaf",
             "state": {
               "type": "search",
@@ -80,36 +65,36 @@
             }
           },
           {
-            "id": "c6938adc013a1e9b",
+            "id": "59f74b3f7c7670a7",
             "type": "leaf",
             "state": {
               "type": "bookmarks",
               "state": {},
               "icon": "lucide-bookmark",
-              "title": "书签"
+              "title": "Bookmarks"
             }
           }
         ]
       }
     ],
     "direction": "horizontal",
-    "width": 398.5
+    "width": 481.5026054382324
   },
   "right": {
-    "id": "b4f8ddebf4c2f0bf",
+    "id": "d8ec742ce49be681",
     "type": "split",
     "children": [
       {
-        "id": "550fafe6c827de77",
+        "id": "b34f9e9c233bdffe",
         "type": "tabs",
         "children": [
           {
-            "id": "2aef3af4580a60da",
+            "id": "59ddd171b0a58883",
             "type": "leaf",
             "state": {
               "type": "backlink",
               "state": {
-                "file": "WORKSPACE/技术/DataTech/Starrocks&Doris/BE内存排查.md",
+                "file": "WORKSPACE/工作/广联达/2026/01-daily/2026.04.md",
                 "collapseAll": true,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -119,25 +104,25 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for BE内存排查"
+              "title": "Backlinks for 2026.04"
             }
           },
           {
-            "id": "736ce45e12679058",
+            "id": "708ecd206ea6c027",
             "type": "leaf",
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "WORKSPACE/技术/DataTech/Starrocks&Doris/BE内存排查.md",
+                "file": "WORKSPACE/工作/广联达/2026/01-daily/2026.04.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Outgoing links from BE内存排查"
+              "title": "Outgoing links from 2026.04"
             }
           },
           {
-            "id": "43df4a013407a257",
+            "id": "d7f997a381f35c72",
             "type": "leaf",
             "state": {
               "type": "tag",
@@ -152,22 +137,22 @@
             }
           },
           {
-            "id": "76b129c870a06e2b",
+            "id": "5dfd21f84f3b975a",
             "type": "leaf",
             "state": {
               "type": "outline",
               "state": {
-                "file": "WORKSPACE/技术/DataTech/Starrocks&Doris/BE内存排查.md",
+                "file": "WORKSPACE/工作/广联达/2026/11-分享资料/公路算量 & PML 数据打通方案分享.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of BE内存排查"
+              "title": "Outline of 公路算量 & PML 数据打通方案分享"
             }
           },
           {
-            "id": "e002e5ac8c531111",
+            "id": "6be9ec9736dfd0b7",
             "type": "leaf",
             "state": {
               "type": "todo",
@@ -181,70 +166,65 @@
       }
     ],
     "direction": "horizontal",
-    "width": 469.5,
-    "collapsed": true
+    "width": 419.5
   },
   "left-ribbon": {
     "hiddenItems": {
-      "switcher:打开快速切换": false,
-      "graph:查看关系图谱": false,
-      "canvas:新建白板": false,
-      "daily-notes:打开/创建今天的日记": false,
-      "templates:插入模板": false,
-      "command-palette:打开命令面板": false,
-      "bases:新建数据库": false,
-      "iconic:Open rulebook": false
+      "iconic:Open rulebook": false,
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "bases:Create new base": false
     }
   },
-  "active": "93a940f668ae6cd9",
+  "active": "6be9ec9736dfd0b7",
   "lastOpenFiles": [
-    "Pasted image 20260601134609.png",
-    "WORKSPACE/工作/广联达/2026/01-daily/2026.06.md",
-    "WORKSPACE/工作/广联达/2026/10-会议/2026Q1复盘.md",
-    "WORKSPACE/工作/广联达/2026/10-会议/任职评审/任职.md",
-    "WORKSPACE/工作/广联达/2026/07-dtc专项/未命名.md",
-    "WORKSPACE/工作/广联达/2026/01-daily/2026.05.md",
+    "WORKSPACE/工作/广联达/2026/11-分享资料/公路算量与PML贯通分享.md",
+    "WORKSPACE/工作/广联达/2026/11-分享资料/公路算量 & PML 数据打通方案分享.md",
+    "WORKSPACE/工作/广联达/2026/11-分享资料/ar.png",
+    "WORKSPACE/工作/广联达/2026/11-分享资料/caozuo.png",
     "Pasted image 20260529103225.png",
     "Pasted image 20260529094632.png",
     "Pasted image 20260529094528.png",
     "Pasted image 20260529093845.png",
-    "WORKSPACE/工作/广联达/2026/10-会议/任职评审",
-    "WORKSPACE/工作/广联达/2026/10-会议/主数据交付会议沟通.md",
     "Pasted image 20260526164009.png",
-    "WORKSPACE/技术/AI/ai2sql/ai2dsl2sql.md",
-    "WORKSPACE/技术/AI/上车上车/Data Agent Ready Database.md",
+    "WORKSPACE/工作/广联达/2025/02-专项/14-湖仓技术攻关/周报汇总.md",
+    "WORKSPACE/工作/广联达/2025/02-专项/02-公路算量方案/慢SQL.md",
+    "WORKSPACE/工作/广联达/2025/02-专项/02-公路算量方案/PMS对接.md",
+    "WORKSPACE/工作/广联达/2025/02-专项/02-公路算量方案/整体流程设计.md",
+    "WORKSPACE/工作/广联达/2026/11-分享资料/公路算量与PML贯通分享~.md",
+    "WORKSPACE/工作/广联达/2026/01-daily/2026.06.md",
+    "WORKSPACE/工作/广联达/2026/11-分享资料",
+    "WORKSPACE/工作/广联达/2026/01-daily/Untitled",
+    "WORKSPACE/工作/广联达/2026/05-内外需求/04-工程数据沟通/工程数据底层数据平台说明.md",
+    "WORKSPACE/工作/广联达/2026/01-daily/2026.01.md",
+    "WORKSPACE/工作/广联达/2026/05-内外需求/04-工程数据沟通",
+    "WORKSPACE/工作/广联达/2026/05-内外需求/02-PML/年中检视.md",
+    "WORKSPACE/工作/广联达/2026/05-内外需求/03-公路算量-PML/公路算量&PML方案.md",
+    "WORKSPACE/工作/广联达/2026/05-内外需求/02-PML/AI提效.md",
+    "WORKSPACE/工作/广联达/2026/05-内外需求/03-公路算量-PML",
+    "WORKSPACE/工作/广联达/文档索引.md",
+    "WORKSPACE/工作/广联达/2026/01-daily/2026.05.md",
     "WORKSPACE/技术/AI/ai2sql/ai2dsl2sql_images/shop3.png",
     "WORKSPACE/技术/AI/ai2sql/ai2dsl2sql_images/shop2.png",
     "WORKSPACE/技术/AI/ai2sql/ai2dsl2sql_images/shop1.png",
-    "WORKSPACE/技术/AI/ai2sql/ai2dsl2sql_images/diagram.jpg",
     "WORKSPACE/技术/AI/ai2sql/ai2dsl2sql_images",
+    "WORKSPACE/技术/AI/ai2sql/ai2dsl2sql.md",
     "WORKSPACE/技术/AI/ai2sql",
-    "WORKSPACE/工作/广联达/文档索引.md",
-    "WORKSPACE/工作/广联达/2026/任务书.md",
+    "WORKSPACE/工作/广联达/2026/10-会议/任职评审/任职.md",
+    "WORKSPACE/工作/广联达/2026/10-会议/任职评审",
+    "WORKSPACE/工作/广联达/2026/10-会议/主数据交付会议沟通.md",
     "WORKSPACE/工作/广联达/2026/10-会议/DTC IPaaS讨论.md",
-    "WORKSPACE/工作/广联达/部署环境/环境整理.md",
-    "WORKSPACE/工作/广联达/2026/11-内部/价值量化与成本分摊.md",
-    "WORKSPACE/工作/广联达/2026/05-内外需求/02-PML/AI提效.md",
+    "WORKSPACE/工作/广联达/2026/09-研发/gravitino.md",
     "WORKSPACE/工作/广联达/2026/01-daily/2026.04.md",
-    "WORKSPACE/技术/AI/翻车了/翻车记录.md",
-    "WORKSPACE/工作/广联达/2026/07-dtc专项/企业级专项/AI开发提效/最终方案确认.md",
-    "WORKSPACE/工作/广联达/2026/10-会议",
-    "WORKSPACE/工作/广联达/2026/07-dtc专项/资金决策被动采集/架构图.md",
-    "WORKSPACE/工作/广联达/2026/07-dtc专项/企业级专项/AI开发提效/元数据同步方案--1st.md",
-    "WORKSPACE/工作/广联达/2026/07-dtc专项/企业级专项/AI开发提效/AI开发台账查询周记.md",
-    "WORKSPACE/工作/广联达/2026/07-dtc专项/企业级专项/AI开发提效/AI开发元数据依赖--2nd.md",
-    "WORKSPACE/工作/广联达/2026/07-dtc专项/企业级专项/PML联合专项表.md",
-    "WORKSPACE/工作/广联达/2026/07-dtc专项/企业级专项/PM不Lead",
-    "WORKSPACE/工作/广联达/2026/03-申报/一季度/轻量化-微服务治理/微服务治理申报(2026一季度团队).md",
-    "WORKSPACE/工作/广联达/2026/03-申报/一季度/轻量化-微服务治理",
-    "WORKSPACE/工作/广联达/2026/03-申报/一季度",
-    "WORKSPACE/工作/广联达/2026/03-申报",
-    "WORKSPACE/工作/广联达/2026/01-daily/2026.03.md",
-    "WORKSPACE/技术/AI/上车上车",
-    "WORKSPACE/工作/广联达/2026/07-dtc专项/绩效/沟通.md",
-    "WORKSPACE/工作/广联达/2026/07-dtc专项/企业级专项/AI开发提效",
-    "WORKSPACE/工作/广联达/2024/数据中台/Daily/未命名.canvas",
-    "WORKSPACE/工作/广联达/未命名.canvas",
-    "未命名.canvas"
+    "WORKSPACE/工作/广联达/2026/11-内部/价值量化与成本分摊.md",
+    "WORKSPACE/工作/广联达/2026/任务书.md",
+    "WORKSPACE/工作/广联达/2026/11-内部",
+    "WORKSPACE/工作/广联达/2026/02-内部讨论/本地化开发/DTC本地AI开发.md",
+    "WORKSPACE/工作/广联达/2026/02-内部讨论/本地化开发",
+    "WORKSPACE/工作/广联达/2026/07-湖仓一体/000-盘盘盘/湖仓一体笔记.md"
   ]
 }
