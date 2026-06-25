@@ -1,7 +1,7 @@
 ### 0.1 一句话先讲明白
 > 公路算量是数据源头，数据提交后通过消息通知CDE，CDE 收到 MQ 后**把任务发到工具链**，工具链启动 **Hop 任务**完成"下载→加工→推送"三步，加工结果写入 **数据湖**，**PML** 收到消息后**通过服务读 StarRocks** 消费。**特别注意**：CDE 本身不读 OBS、不写 StarRocks——**这些都在工具链的 Hop 任务里**。
 ### 0.2 全流程总览（时序图）
-
+![[Ps.png]]
 ```mermaid
 sequenceDiagram
     autonumber
@@ -307,7 +307,7 @@ flowchart LR
 > "**传输安全**：所有 API 走 HTTPS，MQ 走内网专线，OBS 桶有桶级 ACL。**存储安全**：数据按租户 ID 隔离，租户的数据物理上不会和别的租户混。**访问安全**：每次调用需要走平台网关，具备平台网关鉴权。"
 
 **补充**：
-- "数据能不能本地部署"——>："不支持本地化"
+- "数据能不能本地部署"——>："支持本地化"
 
 ### 5.2 "如果客户有 MDM / 数据中台，要求我们按规范转？"
 
@@ -324,3 +324,7 @@ flowchart LR
 ---
 ## 6.技术架构
 ![[ar.png]]
+*Hop主流程
+![](https://wdcdn.qpic.cn/MTY4ODg1NzcxMzQ4NzU4OA_499737_8v88gHhUTGz8m7yT_1753336712?w=1530&h=412&type=image/png)
+*Hop公路算量算子流*
+![](https://wdcdn.qpic.cn/MTY4ODg1NzcxMzQ4NzU4OA_38428_5b9DlJ-R9rvK1StU_1753337194?w=935&h=546&type=image/png)
